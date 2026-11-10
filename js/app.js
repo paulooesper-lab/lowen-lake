@@ -279,6 +279,12 @@
     atual = Math.round(trilho.scrollLeft / trilho.clientWidth);
     const id = paineis[atual]?.id;
     topo.querySelectorAll("[data-painel]").forEach((a) => a.classList.toggle("ativo", a.dataset.painel === id));
+    const menu = topo.querySelector(".menu"), lk = menu && menu.querySelector("a.ativo");
+    if (lk && menu.scrollWidth > menu.clientWidth) {
+      const rm = menu.getBoundingClientRect(), rl = lk.getBoundingClientRect();
+      menu.scrollTo({ left: menu.scrollLeft + (rl.left - rm.left) - (rm.width - rl.width) / 2, behavior: marcar.ja ? "smooth" : "auto" });
+    }
+    marcar.ja = true;
     pontos.querySelectorAll("button").forEach((b, i) => b.classList.toggle("ativo", i === atual));
     $("#seta-esq").hidden = atual === 0; $("#seta-dir").hidden = atual === paineis.length - 1;
     if (id && location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
