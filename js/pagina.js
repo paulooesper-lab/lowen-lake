@@ -1,6 +1,6 @@
 /* Páginas internas: local.html?id=... e eventos.html */
 (function () {
-  const { S, T, U, esc, $, img, acharLocal, locaisVisiveis, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, abrirPersonagem, abrirLocal, rodape, idadeTexto } = window.LL;
+  const { S, T, U, esc, $, img, acharLocal, locaisVisiveis, acharCriatura, urlCriatura, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, abrirPersonagem, abrirLocal, rodape, idadeTexto } = window.LL;
   cabecalho(false);
   const main = $("#pagina");
   const tipo = document.body.dataset.pagina;
@@ -99,6 +99,25 @@
           <span class="segredo-dica">${esc(T(pg.segredo.dica))}</span></a>` : ""}
       ${pg.fatos ? `<div class="envolve"><dl class="fatos">${pg.fatos.map((f) => `<div><dt>${esc(T(f.rotulo))}</dt><dd>${esc(T(f.valor))}</dd></div>`).join("")}</dl></div>` : ""}
       ${pg.mapa ? mapaLocal(pg.mapa) : ""}
+      ${pg.audios ? `<section class="envolve faixa" id="radio"><h2>${esc(U("noAr"))}</h2><p class="miudo">${esc(U("audioLegenda"))}</p>
+        <div class="radio-grade">${pg.audios.map((a) => `
+          <article class="radio-prog">
+            ${img(a.imagem, a.titulo, ["#1b1b1b", "#ff4f93"], "radio-thumb")}
+            <div class="radio-txt">
+              <span class="etiqueta">FM 88.6 · ${esc(T(a.com))}</span>
+              <h3>${esc(T(a.titulo))}</h3>
+              <p>${esc(T(a.resumo))}</p>
+              <audio controls preload="none" src="${esc(a.audio)}"></audio>
+            </div>
+          </article>`).join("")}</div>
+        ${pg.programacao ? `<h3 class="sub">${esc(U("programacao"))}</h3><ul class="lista-simples">${lista(pg.programacao)}</ul>` : ""}
+      </section>` : ""}
+      ${pg.divisoes ? `<section class="envolve faixa"><h2>${esc(U("divisoes"))}</h2>
+        <div class="divisoes">${pg.divisoes.map((d) => `
+          <article class="divisao">
+            <img class="patch" src="${esc(d.patch)}" alt="${esc(d.sigla)}" loading="lazy">
+            <div><strong>${esc(d.sigla)}</strong><span class="miudo">${esc(d.nome)}</span><p>${esc(T(d.texto))}</p></div>
+          </article>`).join("")}</div></section>` : ""}
       <div class="envolve secoes">
         ${(pg.secoes || []).map((s) => `
           <section class="secao-local${s.fosseis ? " secao-larga" : ""}" ${s.fosseis ? 'id="fosseis"' : ""}>
@@ -110,6 +129,15 @@
                 <div><h3><i>${esc(f.nome)}</i></h3><span class="local-tipo">${esc(T(f.tamanho))}</span><p>${esc(T(f.texto))}</p></div></article>`).join("")}</div>` : ""}
           </section>`).join("")}
       </div>
+      ${pg.agenda ? `<section class="envolve faixa"><h2>${esc(U("agenda"))}</h2>
+        <ol class="agenda">${pg.agenda.map((a) => `<li><span class="agenda-data">${esc(T(a.data))}</span><div><strong>${esc(T(a.nome))}</strong><p>${esc(T(a.texto))}</p></div></li>`).join("")}</ol></section>` : ""}
+      ${pg.veiculos ? `<section class="envolve faixa"><h2>${esc(U("veiculos"))}</h2>
+        <div class="veiculos">${pg.veiculos.map((v) => `<div class="veiculo"><strong>${esc(T(v.nome))}</strong><p>${esc(T(v.texto))}</p></div>`).join("")}</div></section>` : ""}
+      ${pg.recortes ? `<section class="envolve faixa"><h2>${esc(U("recortes"))}</h2>
+        <div class="recortes">${pg.recortes.map((r, i) => `
+          <figure class="recorte${r.destaque ? " recorte-destaque" : ""}" style="--giro:${[-2, 1.5, -1, 2, -1.5][i % 5]}deg">
+            <button type="button" data-zoom>${img(r.imagem, r.legenda, ["#e9dfc4", "#3a3a3a"])}</button>
+            <figcaption>${esc(T(r.legenda))}</figcaption></figure>`).join("")}</div></section>` : ""}
       ${pg.fauna ? fauna(pg.fauna) : ""}
       ${pg.galeria ? `<section class="envolve faixa"><h2>${esc(U("galeria"))}</h2>
         <div class="carrossel galeria">${pg.galeria.map((g) => `
@@ -152,6 +180,54 @@
       if (!z) return;
       const im = z.querySelector("img"), leg = z.closest("figure")?.querySelector("figcaption")?.textContent || "";
       abrirCaixa(`<img class="caixa-zoom" src="${esc(im.src)}" alt="${esc(im.alt)}">${leg ? `<p class="caixa-legenda">${esc(leg)}</p>` : ""}`, "caixa-imagem");
+    });
+  }
+
+  /* ---------- bestiário: criatura.html (índice) e criatura.html?id=... ---------- */
+  if (tipo === "criatura") {
+    const id = new URLSearchParams(location.search).get("id");
+    const c = id && acharCriatura(id);
+    const lista = (v) => (T(v) || []).map((x) => `<li>${esc(x)}</li>`).join("");
+    const cartao = (x) => `<a class="cartao-p cartao-criatura" href="${urlCriatura(x.id)}">${img(x.imagem, x.nome, ["#1b2420", "#5c7a3e"])}
+        <span class="cartao-p-txt"><span class="cartao-p-grupo">${esc(T(x.onde))} · ${esc(T(x.escala))}</span><strong>${esc(T(x.nome))}</strong></span></a>`;
+    if (!c) {
+      document.title = `${U("bestiario")} · Lowen Lake`;
+      main.innerHTML = `
+        ${capa(S.banners.lendas, U("etiquetas.lendas"), U("bestiario"), "")}
+        <div class="envolve faixa"><div class="bestiario-grade">${S.criaturas.map(cartao).join("")}</div></div>`;
+    } else {
+      document.title = `${T(c.nome)} · Lowen Lake`;
+      const pg = c.pagina || {};
+      const reg = S.mapa.regioes[c.regiao];
+      main.innerHTML = `
+        <section class="envolve criatura-topo">
+          <a class="voltar" href="criatura.html">← ${esc(U("bestiario"))}</a>
+          <div class="criatura-grade">
+            <button type="button" class="criatura-img" data-zoom>${img(c.imagem, c.nome, ["#1b2420", "#5c7a3e"])}</button>
+            <div class="criatura-txt">
+              <span class="etiqueta">${esc(U("avistamento"))}</span>
+              <h1 class="titulo">${esc(T(c.nome))}</h1>
+              <dl class="fatos fatos-compactos">
+                <div><dt>${esc(U("tamanho"))}</dt><dd>${esc(T(c.escala))}</dd></div>
+                <div><dt>${esc(U("ondeVisto"))}</dt><dd>${reg && reg.pagina ? `<a href="${urlLocal(reg.pagina)}">${esc(T(c.onde))}</a>` : esc(T(c.onde))}</dd></div>
+              </dl>
+              <p class="capa-intro">${esc(T(pg.intro) || T(c.texto))}</p>
+              ${pg.sinais ? `<h2 class="sub">${esc(U("sinais"))}</h2><ul class="lista-simples">${lista(pg.sinais)}</ul>` : ""}
+            </div>
+          </div>
+        </section>
+        ${pg.avistamentos ? `<section class="envolve faixa"><h2>${esc(U("avistamentos"))}</h2>
+          <ol class="agenda">${pg.avistamentos.map((a) => `<li><span class="agenda-data">${esc(T(a.data))}</span><div><strong>${esc(T(a.onde))}</strong><p>${esc(T(a.texto))}</p></div></li>`).join("")}</ol></section>` : ""}
+        ${pg.dossie ? `<section class="envolve faixa"><div class="criatura-dossie">
+          <button type="button" class="dossie-foto" data-zoom style="--giro:-2deg">${img(pg.dossie, c.nome, ["#e9dfc4", "#8a1c1c"])}</button>
+          <div><span class="carimbo">TOP SECRET</span><h2>${esc(U("fichaConfidencial"))}</h2>
+            <a class="botao" href="${urlLocal("area52-dossie")}">${esc(U("abrirDossie"))} →</a></div></div></section>` : ""}
+        <section class="envolve faixa"><h2>${esc(U("outrasCriaturas"))}</h2>
+          <div class="carrossel carrossel-retratos">${S.criaturas.filter((x) => x !== c).map(cartao).join("")}</div></section>`;
+    }
+    main.addEventListener("click", (e) => {
+      const z = e.target.closest("[data-zoom]");
+      if (z) abrirCaixa(`<img class="caixa-zoom" src="${esc(z.querySelector("img").src)}" alt="">`, "caixa-imagem");
     });
   }
 

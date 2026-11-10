@@ -179,7 +179,8 @@
       <p class="miudo">${esc(U("fosseisMuseu"))}</p>
       <div class="fosseis-mini">${S.fosseis.map((f) => `<a href="${urlLocal("museu")}#fosseis" class="fossil-mini">${img(f.imagem, f.nome, ["#2a2418", "#c9a227"])}<i>${esc(f.nome)}</i></a>`).join("")}</div>
       <a class="botao botao-linha" href="${urlLocal("museu")}">${esc(U("verMuseu"))} →</a>
-    </div>`, { titulo: U("tituloLendas"), etiqueta: U("etiquetas.lendas") });
+    </div>`, { titulo: U("tituloLendas"), etiqueta: U("etiquetas.lendas"),
+    acao: `<a class="botao" href="criatura.html">${esc(U("verBestiario"))} →</a>` });
   $("#lista-criaturas").addEventListener("click", (e) => { const b = e.target.closest("[data-nome]"); if (b) abrirCriatura(b.dataset.nome); });
 
   /* ---------- 7. eventos ---------- */

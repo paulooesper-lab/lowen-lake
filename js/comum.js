@@ -138,8 +138,10 @@
       </div>`, "caixa-larga");
   }
 
+  const urlCriatura = (id) => `criatura.html?id=${encodeURIComponent(id)}`;
+  const acharCriatura = (chave) => S.criaturas.find((x) => x.id === chave || T(x.nome) === chave || x.nome === chave || (x.nome && x.nome.pt === chave));
   function abrirCriatura(nome) {
-    const c = S.criaturas.find((x) => T(x.nome) === nome || x.nome === nome); if (!c) return;
+    const c = acharCriatura(nome); if (!c) return;
     abrirCaixa(`
       <div class="caixa-local">
         ${img(c.imagem, c.nome, ["#1b2420", "#5c7a3e"], "caixa-local-img caixa-retrato")}
@@ -148,6 +150,7 @@
           <h3>${esc(T(c.nome))}</h3>
           <p class="miudo">${esc(T(c.onde))}</p>
           <p>${esc(T(c.texto))}</p>
+          ${c.id ? `<div class="caixa-acoes"><a class="botao" href="${urlCriatura(c.id)}">${esc(U("saibaMais"))} →</a></div>` : ""}
         </div>
       </div>`, "caixa-larga");
   }
@@ -175,6 +178,6 @@
     }));
   }
 
-  window.LL = { S, LANG, T, U, esc, $, img, acharLocal, locaisVisiveis, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
+  window.LL = { S, LANG, T, U, esc, $, img, acharLocal, locaisVisiveis, urlCriatura, acharCriatura, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
     abrirPersonagem, abrirLocal, abrirCriatura, rodape, ligarCopiar, idadeTexto, SECOES };
 })();
