@@ -6,7 +6,7 @@
 <title>Lowen Lake</title>
 <meta name="description" content="Lowen Lake: o universo, os personagens, os locais e o portfólio de arte. Encomendas abertas.">
 <meta property="og:title" content="Lowen Lake">
-<meta property="og:description" content="Punks, pântanos, criptídeos e uma base que não existe. Universo, personagens e encomendas de arte.">
+<meta property="og:description" content="Punks, pântanos, criptídeos e uma base que não existe. / Punks, swamps, cryptids and a base that doesn't exist.">
 <meta property="og:image" content="img/banners/inicio.jpg">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,186 +14,39 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Overpass:wght@400;600;800&family=Special+Elite&display=swap">
 <link rel="stylesheet" href="css/estilo.css">
 </head>
-<body>
+<body class="home">
 
-<header class="topo">
-  <a class="marca" href="#inicio">Lowen&nbsp;Lake</a>
-  <nav class="menu" aria-label="Seções">
-    <a href="#cidade">A cidade</a>
-    <a href="#personagens">Personagens</a>
-    <a href="#locais">Locais</a>
-    <a href="#mapa">Mapa</a>
-    <a href="#lendas">Lendas</a>
-    <a href="#portfolio">Portfólio</a>
-    <a href="#encomendas" class="menu-cta">Encomendas</a>
-  </nav>
-</header>
-
-<main>
-
-  <!-- HERO -->
-  <section id="inicio" class="hero">
-    <div class="envolve hero-grade">
-      <div class="placa" role="img" aria-label="Placa de estrada: Welcome to Lowen Lake">
-        <span class="placa-topo">Welcome to</span>
-        <span class="placa-nome" data-campo="cidade.nome">Lowen Lake</span>
-        <span class="placa-linha" data-campo="cidade.condado">Lowen Lake County</span>
-        <span class="placa-rodape">Home of the Fighting Gators</span>
-      </div>
-      <div class="hero-texto">
-        <p class="lema" data-campo="cidade.lema"></p>
-        <p class="resumo" data-campo="cidade.resumo"></p>
-        <div class="hero-acoes">
-          <a class="botao" href="#personagens">Conheça os moradores</a>
-          <a class="botao botao-linha" href="#encomendas">Encomendar arte</a>
-        </div>
-        <p class="relogio"><span class="relogio-rot" id="relogio-rot"></span> <b id="relogio-val"></b> <span id="relogio-nota"></span></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- A CIDADE -->
-  <section id="cidade" class="secao">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta">Arquivo municipal</span>A cidade</h2>
-      <p class="intro" data-campo="cidade.tom"></p>
-      <div class="cidade-grade">
-        <div class="historia" id="historia"></div>
-        <aside class="cronologia">
-          <h3>Cronologia</h3>
-          <ol id="cronologia"></ol>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- PERSONAGENS -->
-  <section id="personagens" class="secao secao-escura">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta">Moradores</span>Personagens</h2>
-      <div class="filtros" id="filtro-personagens" role="tablist" aria-label="Filtrar personagens"></div>
-      <div class="grade-personagens" id="lista-personagens"></div>
-    </div>
-  </section>
-
-  <!-- LOCAIS -->
-  <section id="locais" class="secao">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta">Pontos de interesse</span>Locais</h2>
-      <div class="grade-locais" id="lista-locais"></div>
-    </div>
-  </section>
-
-  <!-- MAPA -->
-  <section id="mapa" class="secao secao-escura">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta">Sem escala</span>Mapa</h2>
-      <p class="intro">Toque numa região para ver o que tem lá.</p>
-      <div class="mapa-grade">
-        <div class="mapa-quadro" id="mapa-quadro"></div>
-        <aside class="mapa-info" id="mapa-info" aria-live="polite">
-          <h3>Lowen Lake County</h3>
-          <p>Montanhas ao norte, pântano ao sul e o Big Blue Lake no meio de tudo.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- LENDAS -->
-  <section id="lendas" class="secao">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta">Avistamentos</span>Lendas e criaturas</h2>
-      <div class="grade-criaturas" id="lista-criaturas"></div>
-      <div class="lendas-rodape">
-        <div>
-          <h3>Paleontology Hall</h3>
-          <ul class="lista-fosseis" id="lista-fosseis"></ul>
-        </div>
-        <div>
-          <h3>Festivais</h3>
-          <ul class="lista-fosseis" id="lista-eventos"></ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PORTFÓLIO -->
-  <section id="portfolio" class="secao secao-escura">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta">Desenhos e quadrinhos</span>Portfólio</h2>
-      <div class="filtros" id="filtro-portfolio" role="tablist" aria-label="Filtrar portfólio"></div>
-      <div class="grade-portfolio" id="lista-portfolio"></div>
-    </div>
-  </section>
-
-  <!-- ENCOMENDAS -->
-  <section id="encomendas" class="secao">
-    <div class="envolve">
-      <h2 class="titulo"><span class="etiqueta" id="status-encomendas"></span>Encomendas</h2>
-      <p class="intro">Arte sob encomenda dos personagens de Lowen Lake, dos seus personagens ou de fan art.</p>
-
-      <div class="precos" id="lista-precos"></div>
-      <ul class="extras" id="lista-extras"></ul>
-
-      <div class="enc-grade">
-        <div>
-          <h3>Como funciona</h3>
-          <ol class="passos" id="lista-passos"></ol>
-          <div class="faco">
-            <div><h4>Eu desenho</h4><ul id="lista-faco"></ul></div>
-            <div><h4>Eu não desenho</h4><ul id="lista-naofaco"></ul></div>
-          </div>
-          <p class="miudo" id="info-pagamento"></p>
-        </div>
-
-        <form class="pedido" id="form-pedido" novalidate>
-          <h3>Pedir orçamento</h3>
-          <label for="f-nome">Seu nome</label>
-          <input id="f-nome" name="nome" required autocomplete="name">
-          <label for="f-email">Seu e-mail</label>
-          <input id="f-email" name="email" type="email" required autocomplete="email">
-          <label for="f-tipo">Tipo de arte</label>
-          <select id="f-tipo" name="tipo"></select>
-          <label for="f-personagens">Personagem(ns)</label>
-          <input id="f-personagens" name="personagens" placeholder="Ex.: Jane e Asha, ou meu OC">
-          <label for="f-descricao">Descreva a ideia</label>
-          <textarea id="f-descricao" name="descricao" rows="5" required placeholder="Pose, cenário, clima, roupa…"></textarea>
-          <label for="f-ref">Links de referência (opcional)</label>
-          <input id="f-ref" name="referencias" placeholder="Drive, Pinterest, Instagram…">
-          <label for="f-prazo">Prazo desejado (opcional)</label>
-          <input id="f-prazo" name="prazo">
-          <button class="botao" type="submit">Enviar pedido</button>
-          <p class="form-msg" id="form-msg" role="status"></p>
-        </form>
-      </div>
-    </div>
-  </section>
+<main class="trilho" id="trilho">
+  <section class="painel" id="inicio"></section>
+  <section class="painel" id="cidade"></section>
+  <section class="painel" id="personagens"></section>
+  <section class="painel" id="locais"></section>
+  <section class="painel" id="mapa"></section>
+  <section class="painel" id="lendas"></section>
+  <section class="painel" id="eventos"></section>
+  <section class="painel" id="portfolio"></section>
+  <section class="painel" id="encomendas"></section>
 </main>
 
-<footer class="rodape">
-  <div class="envolve rodape-grade">
+<button class="seta seta-esq" type="button" id="seta-esq">‹</button>
+<button class="seta seta-dir" type="button" id="seta-dir">›</button>
+<div class="pontos" id="pontos"></div>
+
+<!-- mapa ampliado -->
+<dialog class="mapa-grande" id="mapa-grande">
+  <div class="mapa-grande-barra">
+    <strong>Lowen Lake County</strong>
     <div>
-      <p class="marca">Lowen&nbsp;Lake</p>
-      <p class="miudo">Universo e arte de <span id="nome-artista"></span>. Personagens e cenários são obras originais; não reutilize sem autorização.</p>
-    </div>
-    <div class="contato">
-      <span class="miudo">Contato</span>
-      <div class="email-linha">
-        <a id="email-link" href="#"></a>
-        <button class="copiar" type="button" id="copiar-email">Copiar</button>
-      </div>
-      <div class="redes" id="lista-redes"></div>
+      <button type="button" class="botao-icone" id="zoom-menos" aria-label="-">−</button>
+      <button type="button" class="botao-icone" id="zoom-mais" aria-label="+">+</button>
+      <button type="button" class="botao-icone" id="mapa-fechar" aria-label="X">×</button>
     </div>
   </div>
-</footer>
-
-<!-- Ficha do personagem / imagem ampliada -->
-<dialog class="ficha" id="ficha">
-  <button class="fechar" type="button" aria-label="Fechar">×</button>
-  <div id="ficha-conteudo"></div>
+  <div class="mapa-grande-area" id="mapa-grande-area"></div>
 </dialog>
 
 <script src="js/conteudo.js"></script>
+<script src="js/comum.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
