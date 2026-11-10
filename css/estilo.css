@@ -231,6 +231,7 @@ button.mapa-rotulo:hover, button.mapa-rotulo:focus-visible { color: var(--ouro);
 .mapa-grande-area.arrastando { cursor: grabbing; }
 .mapa-grande-area .mapa-ilustrado { min-width: 100%; }
 .mapa-grande-area .mapa-rotulo { font-size: clamp(11px, 1.3vw, 22px); }
+.mapa-grande-area .mapa-pin { max-width: 120px; }
 
 /* ---------- lendas ---------- */
 .cartao-criatura .cartao-p-txt strong { font-size: .98rem; }
