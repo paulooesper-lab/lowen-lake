@@ -1,6 +1,6 @@
 /* Página principal: painéis que passam para o lado. Monta tudo a partir de js/conteudo.js. */
 (function () {
-  const { S, T, U, esc, $, img, acharLocal, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
+  const { S, T, U, esc, $, img, acharLocal, locaisVisiveis, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
     abrirPersonagem, abrirLocal, abrirCriatura, rodape, ligarCopiar, idadeTexto, SECOES } = window.LL;
 
   const topo = cabecalho(true);
@@ -93,7 +93,7 @@
 
   /* ---------- 4. locais ---------- */
   const extrasLocal = (id) => `<button type="button" class="botao botao-linha" data-ver-mapa="${esc(id)}">${esc(U("verNoMapa"))}</button>`;
-  painel("locais", carrossel("lista-locais", S.locais.map((l) => `
+  painel("locais", carrossel("lista-locais", locaisVisiveis().map((l) => `
     <button type="button" class="cartao-local" data-local="${esc(l.id)}">
       ${img(l.imagem, l.nome, ["#22302a", "#2f7fb5"])}
       <span class="cartao-local-txt"><span class="local-tipo">${esc(T(l.tipo))} · ${esc(nomeOnde(l.regiao))}</span>
@@ -126,8 +126,9 @@
 
   function infoRegiao(regId) {
     const r = R[regId]; if (!r) return;
-    const aqui = S.locais.filter((l) => l.regiao === regId);
+    const aqui = locaisVisiveis().filter((l) => l.regiao === regId && l.id !== r.pagina);
     $("#mapa-info").innerHTML = `<span class="etiqueta">${esc(U("regiao"))}</span><h3>${esc(T(r.nome))}</h3><p>${esc(T(r.texto))}</p>
+      ${r.pagina ? `<p><a class="botao" href="${urlLocal(r.pagina)}">${esc(U("saibaMais"))} →</a></p>` : ""}
       ${aqui.length ? `<p class="miudo">${esc(U("aqui"))}:</p><div class="mapa-info-links">${aqui.map((l) =>
         `<button type="button" class="link" data-local="${esc(l.id)}">${esc(T(l.nome))}</button>`).join("")}</div>` : ""}`;
   }
@@ -135,6 +136,7 @@
     raiz.addEventListener("click", (e) => {
       const rot = e.target.closest("button.mapa-rotulo");
       const pin = e.target.closest(".mapa-pin");
+      if (rot && dentroDoGrande && R[rot.dataset.reg].pagina) { abrirLocal(R[rot.dataset.reg].pagina); return; }
       if (rot) { if (dentroDoGrande) abrirCaixa(`<span class="etiqueta">${esc(U("regiao"))}</span><h3>${esc(T(R[rot.dataset.reg].nome))}</h3><p>${esc(T(R[rot.dataset.reg].texto))}</p>`, "caixa-texto"); else infoRegiao(rot.dataset.reg); return; }
       if (!pin) return;
       raiz.querySelectorAll(".mapa-pin").forEach((x) => x.classList.toggle("ativa", x === pin));

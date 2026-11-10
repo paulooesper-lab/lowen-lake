@@ -49,6 +49,7 @@
 
   /* ---------- buscas ---------- */
   const acharLocal = (id) => S.locais.find((l) => l.id === id);
+  const locaisVisiveis = () => S.locais.filter((l) => !l.oculto);
   const acharPersonagem = (id) => S.personagens.find((p) => p.id === id);
   const nomeOnde = (id) => { const l = acharLocal(id); if (l) return T(l.nome); const r = S.mapa.regioes[id]; return r ? T(r.nome) : ""; };
   const urlLocal = (id) => `local.html?id=${encodeURIComponent(id)}`;
@@ -59,7 +60,7 @@
     const h = document.createElement("header");
     h.className = "topo";
     h.innerHTML = `
-      <a class="marca" href="${naHome ? "#inicio" : "index.html"}">Lowen&nbsp;Lake</a>
+      <a class="marca" href="${naHome ? "#inicio" : "index.html"}">${S.logo ? `<img class="marca-pato" src="${esc(S.logo)}" alt="" onerror="this.remove()">` : ""}<span>Lowen&nbsp;Lake</span></a>
       <nav class="menu" aria-label="Menu">
         ${SECOES.slice(1).map((s) => {
           const href = s === "eventos" && !naHome ? "eventos.html" : naHome ? `#${s}` : `index.html#${s}`;
@@ -174,6 +175,6 @@
     }));
   }
 
-  window.LL = { S, LANG, T, U, esc, $, img, acharLocal, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
+  window.LL = { S, LANG, T, U, esc, $, img, acharLocal, locaisVisiveis, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
     abrirPersonagem, abrirLocal, abrirCriatura, rodape, ligarCopiar, idadeTexto, SECOES };
 })();
