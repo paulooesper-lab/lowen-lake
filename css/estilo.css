@@ -483,6 +483,66 @@ button.mapa-rotulo:hover, button.mapa-rotulo:focus-visible { color: var(--ouro);
 .dossie-anotacoes .manuscrito { color: var(--tinta); }
 .modo-dossie .rodape, .modo-caderno .rodape { background: transparent; }
 
+/* ---------- seções extras das páginas ---------- */
+.sub { font: 1rem var(--f-display); margin-top: 6px; }
+.lista-simples { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; color: var(--cinza); }
+
+/* divisões da Área 52: patch com brilho no hover */
+.divisoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.divisao { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: center; background: var(--musgo); border: 1px solid var(--linha); border-radius: 6px; padding: 14px; }
+.divisao strong { font: 1.1rem var(--f-display); display: block; }
+.divisao .miudo { display: block; margin-bottom: 4px; }
+.divisao p { color: var(--cinza); font-size: .9rem; }
+.patch { width: 76px; height: 96px; object-fit: contain; transition: transform .25s, filter .25s; filter: drop-shadow(0 3px 6px rgba(0,0,0,.6)); cursor: pointer; }
+.divisao:hover .patch, .patch:focus-visible {
+  transform: scale(1.12) rotate(-3deg);
+  filter: drop-shadow(0 0 8px rgba(158, 255, 168, .9)) drop-shadow(0 0 22px rgba(158, 255, 168, .55)) brightness(1.15);
+}
+.divisao:hover { border-color: rgba(158, 255, 168, .5); }
+
+/* rádio */
+.radio-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: 16px; }
+.radio-prog { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); background: var(--musgo); border: 1px solid var(--linha); border-radius: 6px; overflow: hidden; }
+.radio-thumb { width: 100%; height: 100%; min-height: 200px; object-fit: cover; }
+.radio-txt { padding: 16px; display: grid; gap: 8px; align-content: start; }
+.radio-txt h3 { font: 1.2rem var(--f-display); }
+.radio-txt p { color: var(--cinza); font-size: .9rem; }
+.radio-txt audio { width: 100%; margin-top: 4px; }
+
+/* recortes de jornal */
+.recortes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 22px; align-items: start; }
+.recorte { margin: 0; display: grid; gap: 6px; transform: rotate(var(--giro, 0deg)); transition: transform .2s; }
+.recorte:hover { transform: rotate(0) scale(1.03); }
+.recorte button { padding: 0; border: 0; background: none; cursor: zoom-in; }
+.recorte img { width: 100%; aspect-ratio: 2/3; object-fit: cover; box-shadow: 0 8px 20px rgba(0,0,0,.5); }
+.recorte figcaption { font: .85rem var(--f-ficha); color: var(--cinza); text-align: center; }
+.recorte-destaque { grid-column: span 2; grid-row: span 2; }
+
+/* agenda e avistamentos */
+.agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.agenda li { display: grid; grid-template-columns: 9em minmax(0, 1fr); gap: 14px; background: var(--musgo); border-left: 4px solid var(--ouro); padding: 12px 16px; border-radius: 0 4px 4px 0; }
+.agenda-data { font: 1rem var(--f-display); color: var(--ouro); }
+.agenda p { color: var(--cinza); }
+
+/* veículos */
+.veiculos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.veiculo { background: var(--painel); border-top: 3px solid var(--neon); padding: 12px 14px; border-radius: 0 0 4px 4px; }
+.veiculo strong { display: block; font-weight: 800; }
+.veiculo p { color: var(--cinza); font-size: .88rem; }
+
+/* bestiário */
+.bestiario-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+.cartao-criatura { text-decoration: none; color: var(--osso); }
+.criatura-topo { padding-block: 24px; display: grid; gap: 14px; }
+.criatura-grade { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 28px; align-items: start; }
+.criatura-img { padding: 0; border: 0; background: none; cursor: zoom-in; }
+.criatura-img img { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 6px; }
+.criatura-txt { display: grid; gap: 12px; }
+.criatura-txt .titulo { font-size: clamp(2rem, 5vw, 3.6rem); }
+.criatura-dossie { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 26px; align-items: center; background: #efe5c8; color: #2a2418; padding: 22px; border-radius: 2px; font-family: var(--f-ficha); --carimbo: #b3261e; }
+.criatura-dossie h2 { font: 1.4rem var(--f-ficha); margin: 10px 0; }
+.criatura-dossie .carimbo { justify-self: start; }
+
 /* ---------- telas menores ---------- */
 @media (max-width: 1100px) {
   .enc-grade { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
@@ -502,6 +562,10 @@ button.mapa-rotulo:hover, button.mapa-rotulo:focus-visible { color: var(--ouro);
   .ficha-dossie:nth-child(even) { grid-template-columns: minmax(0, 1fr); }
   .ficha-dossie:nth-child(even) .dossie-foto { order: 0; }
   .dossie-foto { max-width: 300px; justify-self: center; }
+  .radio-prog, .criatura-grade, .criatura-dossie { grid-template-columns: minmax(0, 1fr); }
+  .radio-thumb { max-height: 220px; }
+  .recorte-destaque { grid-column: auto; grid-row: auto; }
+  .agenda li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .painel-miolo { justify-content: flex-start; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 20px 72px; gap: 16px; }
   .seta { display: none; }
   .carrossel-seta { display: none; }
