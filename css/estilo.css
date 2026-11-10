@@ -633,7 +633,7 @@ button.mapa-rotulo:hover, button.mapa-rotulo:focus-visible { color: var(--ouro);
   :root { --topo-h: 52px; }
   .marca span { display: none; }
   .marca-pato { width: 32px; height: 32px; }
-  .menu { margin-left: 0; }
+  .menu { margin-left: 0; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 28px), transparent); padding-inline: 8px 24px; }
   .mapa-local, .fauna-painel, .ficha-dossie { grid-template-columns: minmax(0, 1fr); }
   .mapa-ponto-nome { display: none; }
   .galeria { grid-auto-columns: 78vw; }
