@@ -155,7 +155,7 @@
   clicarMapa(area, true);
   const aplicarZoom = () => { area.firstElementChild.style.width = `${zoom * 100}%`; };
   $("#ampliar-mapa").addEventListener("click", () => {
-    zoom = Math.max(1, Math.min(2.5, 1600 / area.clientWidth || 1));
+    zoom = 1;
     grande.showModal(); aplicarZoom();
     area.scrollLeft = (area.scrollWidth - area.clientWidth) / 2; area.scrollTop = (area.scrollHeight - area.clientHeight) / 2;
   });
