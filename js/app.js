@@ -70,14 +70,16 @@
   painel("cidade", `
     <div class="cidade-grade">
       <div class="historia">${S.historia.map((h) => `<article><h3>${esc(T(h.titulo))}</h3><p>${esc(T(h.texto))}</p></article>`).join("")}</div>
-      <aside class="cronologia"><h3>${esc(U("cronologia"))}</h3>
-        <ol>${S.cronologia.map((c) => `<li><span>${esc(T(c.data))}</span>${esc(T(c.fato))}</li>`).join("")}</ol></aside>
+      <aside class="cronologia"><h3>${esc(U("cronologia"))} <small>${S.cronologia.length}</small></h3>
+        <ol class="rola-y" tabindex="0" aria-label="${esc(U("cronologia"))}">${S.cronologia.map((c) => `<li><span>${esc(T(c.data))}</span>${esc(T(c.fato))}</li>`).join("")}</ol>
+        <p class="cronologia-dica" aria-hidden="true">↓ ${esc(U("rolarLinha"))}</p></aside>
     </div>`, { titulo: U("menu.cidade"), etiqueta: U("etiquetas.cidade"), intro: T(S.cidade.tom) });
 
   /* ---------- 3. personagens ---------- */
   const gruposUsados = [...new Set(S.personagens.map((p) => p.grupo))];
   const secP = painel("personagens", filtros(gruposUsados.map((g) => T(S.grupos[g]))) + carrossel("lista-personagens", "", "carrossel-retratos"),
-    { titulo: U("menu.personagens"), etiqueta: U("etiquetas.personagens") });
+    { titulo: U("menu.personagens"), etiqueta: U("etiquetas.personagens"),
+      acao: `<a class="botao" href="relacoes.html">${esc(U("verRelacoes"))} →</a>` });
   function desenharPersonagens(cat) {
     $("#lista-personagens").innerHTML = S.personagens.filter((p) => cat === "*" || T(S.grupos[p.grupo]) === cat).map((p) => `
       <button type="button" class="cartao-p" data-id="${esc(p.id)}">
@@ -195,7 +197,8 @@
   /* ---------- 8. portfólio ---------- */
   const cats = [...new Set(S.portfolio.map((p) => T(p.categoria)))];
   const secPort = painel("portfolio", filtros(cats) + carrossel("lista-portfolio", "", "carrossel-obras"),
-    { titulo: U("menu.portfolio"), etiqueta: U("etiquetas.portfolio") });
+    { titulo: U("menu.portfolio"), etiqueta: U("etiquetas.portfolio"),
+      acao: `<a class="botao" href="sobre.html">${esc(U("sobreArtista"))} →</a>` });
   function desenharPortfolio(cat) {
     $("#lista-portfolio").innerHTML = S.portfolio.map((p, i) => ({ p, i })).filter(({ p }) => cat === "*" || T(p.categoria) === cat).map(({ p, i }) => `
       <button type="button" class="obra" data-i="${i}">${img(p.imagem, p.titulo, ["#1b1b1b", i % 2 ? "#ff3d8b" : "#e8b623"])}
@@ -312,6 +315,11 @@
   trilho.addEventListener("wheel", (e) => {
     if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
     const d = e.deltaY;
+    const ry = e.target.closest(".rola-y");
+    if (ry && ry.scrollHeight > ry.clientHeight + 2) {
+      const fimY = d > 0 ? ry.scrollTop + ry.clientHeight >= ry.scrollHeight - 2 : ry.scrollTop <= 0;
+      if (!fimY) return; // deixa a lista rolar sozinha
+    }
     const car = e.target.closest(".carrossel");
     if (car && car.scrollWidth > car.clientWidth + 2) {
       const fim = d > 0 ? car.scrollLeft + car.clientWidth >= car.scrollWidth - 2 : car.scrollLeft <= 0;

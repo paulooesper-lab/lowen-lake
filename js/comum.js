@@ -114,7 +114,10 @@
             ${campo("aparencia", p.aparencia)}${campo("personalidade", p.personalidade)}${campo("historia", p.historia)}
             ${rel && rel.length ? `<dt>${esc(U("relacoes"))}</dt><dd>${rel.map(esc).join(" · ")}</dd>` : ""}
           </dl>
-          <a class="botao botao-linha" href="index.html?p=${encodeURIComponent(T(p.nome))}#encomendas" data-encomendar="${esc(T(p.nome))}">${esc(U("encomendarPersonagem"))}</a>
+          <div class="caixa-acoes">
+            <a class="botao botao-linha" href="index.html?p=${encodeURIComponent(T(p.nome))}#encomendas" data-encomendar="${esc(T(p.nome))}">${esc(U("encomendarPersonagem"))}</a>
+            ${(S.relacoesMapa || []).some((r) => r[0] === p.id || r[1] === p.id) && document.body.dataset.pagina !== "relacoes" ? `<a class="botao botao-linha" href="relacoes.html?id=${encodeURIComponent(p.id)}">${esc(U("mapaRelacoes"))} →</a>` : ""}
+          </div>
         </div>
       </div>`);
   }
@@ -155,13 +158,26 @@
       </div>`, "caixa-larga");
   }
 
+  /* ---------- ícones das redes ---------- */
+  const ICONES = {
+    instagram: '<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.3" fill="currentColor"/>',
+    x: '<path d="M4 3h4.6l4.1 5.6L17.6 3H20l-6.2 7.1L21 21h-4.6l-4.5-6.1L6.4 21H4l6.8-7.8z" fill="currentColor"/>',
+    deviantart: '<path d="M18 2h-4.3l-.6.9-3 5.1H6v5.4h2.8L6 18.6V22h4.3l.6-.9 3-5.1H18v-5.4h-2.8L18 5.4z" fill="currentColor"/>',
+    bluesky: '<path d="M12 10.8C10.9 8.6 7.9 4.6 5.1 2.6 2.4.7 1.4 1 .7 1.3 0 1.7 0 2.9 0 3.6c0 .7.4 5.6.6 6.4.9 2.9 3.9 3.8 6.7 3.5-4.1.6-7.7 2.1-3 7.3 5.2 5.4 7.1-1.1 8.1-4.5.6 2.1 1.8 6.6 6.1 6.9 3.1.2 4.6-1.6 1.7-4.4-2.3-2-4.4-2.9-6.1-3.3 2.8.3 5.8-.6 6.7-3.5.2-.8.6-5.7.6-6.4 0-.7 0-1.9-.7-2.3-.7-.3-1.7-.6-4.4 1.3-2.8 2-5.8 6-6.9 8.2z" fill="currentColor" transform="translate(.6 .4) scale(.95)"/>',
+  };
+  const iconeRede = (r) => `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">${ICONES[r] || ""}</svg>`;
+  const redesHTML = (cls = "redes") => (S.redes || []).length ? `<ul class="${cls}">${S.redes.map((r) => `
+    <li><a href="${esc(r.url)}" target="_blank" rel="noopener" aria-label="${esc(r.nome)}">${iconeRede(r.rede)}<span><b>${esc(r.nome)}</b><small>${esc(r.usuario || "")}</small></span></a></li>`).join("")}</ul>` : "";
+
   /* ---------- rodapé ---------- */
   function rodape() {
     const f = document.createElement("footer");
     f.className = "rodape";
     f.innerHTML = `
       <div class="envolve rodape-grade">
-        <p class="miudo">${esc(U("direitos").replace("{artista}", S.nomeArtista))}</p>
+        <p class="miudo">${esc(U("direitos").replace("{artista}", S.nomeArtista))}
+          <br><a href="sobre.html">${esc(U("sobreArtista"))}</a> · <a href="relacoes.html">${esc(U("mapaRelacoes"))}</a> · <a href="criatura.html">${esc(U("bestiario"))}</a></p>
+        ${redesHTML("redes redes-mini")}
         <div class="email-linha"><span class="miudo">${esc(U("contato"))}</span>
           <a class="email" href="mailto:${esc(S.email)}">${esc(S.email)}</a>
           <button class="copiar" type="button">${esc(U("copiar"))}</button></div>
@@ -179,5 +195,5 @@
   }
 
   window.LL = { S, LANG, T, U, esc, $, img, acharLocal, locaisVisiveis, urlCriatura, acharCriatura, acharPersonagem, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
-    abrirPersonagem, abrirLocal, abrirCriatura, rodape, ligarCopiar, idadeTexto, SECOES };
+    abrirPersonagem, abrirLocal, abrirCriatura, rodape, ligarCopiar, idadeTexto, SECOES, redesHTML, iconeRede };
 })();

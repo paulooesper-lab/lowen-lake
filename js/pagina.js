@@ -231,6 +231,229 @@
     });
   }
 
+  /* ---------- mapa de relações: relacoes.html ---------- */
+  if (tipo === "relacoes") {
+    document.title = `${U("mapaRelacoes")} · Lowen Lake`;
+    const TIPOS = S.tiposRelacao;
+    const COR_GRUPO = { punks: "#ff3d8b", amigos: "#9fd36b", cidade: "#c9a227", xerifado: "#e6c76a", area52: "#7d8c45",
+      familias: "#2f7fb5", imprensa: "#e0703a", animais: "#b9c4a8", fundadores: "#a08a5a" };
+    const CENTRO = { punks: [820, 560], amigos: [1160, 470], familias: [520, 300], cidade: [600, 860], xerifado: [250, 640],
+      area52: [1330, 860], imprensa: [1180, 170], fundadores: [190, 180], animais: [800, 560] };
+    const W = 1600, H = 1120;
+    const arestas = (S.relacoesMapa || []).filter((r) => acharPersonagem(r[0]) && acharPersonagem(r[1]));
+    const ids = [...new Set(arestas.flatMap((r) => [r[0], r[1]]))];
+    const nos = ids.map((id, i) => {
+      const p = acharPersonagem(id);
+      const grande = ["jane", "asha", "lia", "lily", "jim", "ellen", "cross"].includes(id);
+      return { id, p, r: grande ? 42 : p.grupo === "animais" ? 25 : 32, x: 0, y: 0, vx: 0, vy: 0 };
+    });
+    const no = Object.fromEntries(nos.map((n) => [n.id, n]));
+    // animais ficam presos ao primeiro dono
+    nos.forEach((n) => { if (n.p.grupo === "animais") { const r = arestas.find((a) => a[2] === "animal" && (a[0] === n.id || a[1] === n.id)); n.dono = r && (r[0] === n.id ? r[1] : r[0]); } });
+    // posição inicial: em roda, perto do centro do grupo
+    const porGrupo = {};
+    nos.forEach((n) => { (porGrupo[n.p.grupo] = porGrupo[n.p.grupo] || []).push(n); });
+    Object.entries(porGrupo).forEach(([g, lista]) => lista.forEach((n, i) => {
+      const [cx, cy] = CENTRO[g] || [W / 2, H / 2];
+      const a = (i / lista.length) * Math.PI * 2, raio = 40 + lista.length * 9;
+      n.x = cx + Math.cos(a) * raio; n.y = cy + Math.sin(a) * raio;
+    }));
+    nos.forEach((n) => { if (n.dono && no[n.dono]) { n.x = no[n.dono].x + 50; n.y = no[n.dono].y + 50; } });
+    // simulação simples de forças (sempre igual, sem sorteio)
+    for (let it = 0, calor = 1; it < 500; it++, calor *= 0.993) {
+      for (let i = 0; i < nos.length; i++) for (let j = i + 1; j < nos.length; j++) {
+        const a = nos[i], b = nos[j];
+        let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.1;
+        const min = a.r + b.r + 34;
+        if (d < 300) {
+          const f = (9000 / (d * d)) + (d < min ? (min - d) * 0.5 : 0);
+          dx /= d; dy /= d; a.vx -= dx * f; a.vy -= dy * f; b.vx += dx * f; b.vy += dy * f;
+        }
+      }
+      arestas.forEach(([ia, ib, t]) => {
+        const a = no[ia], b = no[ib];
+        const L = t === "animal" ? 78 : 150;
+        let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy) || 0.1;
+        const f = (d - L) * (t === "animal" ? 0.06 : 0.018);
+        dx /= d; dy /= d; a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
+      });
+      nos.forEach((n) => {
+        if (!n.dono) { const [cx, cy] = CENTRO[n.p.grupo] || [W / 2, H / 2]; n.vx += (cx - n.x) * 0.014; n.vy += (cy - n.y) * 0.014; }
+        n.x += Math.max(-30, Math.min(30, n.vx * calor)); n.y += Math.max(-30, Math.min(30, n.vy * calor));
+        n.vx *= 0.5; n.vy *= 0.5;
+        n.x = Math.max(n.r + 20, Math.min(W - n.r - 20, n.x)); n.y = Math.max(n.r + 20, Math.min(H - n.r - 40, n.y));
+      });
+    }
+    const curto = (p) => T(p.nome).replace(/^(Xerife|Sheriff|General|Prefeita|Mayor|Vovó|Grandma|Oficial|Officer|Investigadora|Detective|Inspetora|Inspector|Capitã|Capt\.|Sargento|Sgt\.|Tenente|Lt\.|Irmã|Sister|Madame)\s+/, "")
+      .replace(/^.*"(.+)".*$/, "$1").replace(/^A jiboia da Jane$|^Jane's boa$/, T({ pt: "Jiboia", en: "Boa" })).split(/[\s/]+/)[0];
+    const fallback = (p) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><rect width="10" height="10" fill="${(p.cor || [])[0] || "#222"}"/></svg>`)}`;
+
+    main.innerHTML = `
+      ${capa(S.banners.personagens, U("etiquetas.personagens"), U("mapaRelacoes"), U("introRelacoes"))}
+      <div class="envolve faixa">
+        <div class="rel-filtros" role="group" aria-label="${esc(U("relacoes"))}">${Object.entries(TIPOS).map(([k, t]) => `
+          <button type="button" data-tipo="${k}" aria-pressed="true" style="--c:${t.cor}"><i></i>${esc(T(t.nome))}</button>`).join("")}</div>
+        <div class="rel-grade">
+          <div class="rel-palco">
+            <svg id="rel-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(U("mapaRelacoes"))}">
+              <defs><clipPath id="rel-clip" clipPathUnits="objectBoundingBox"><circle cx=".5" cy=".5" r=".5"/></clipPath></defs>
+              <g class="rel-arestas">${arestas.map(([a, b, t, rot], i) => {
+                const A = no[a], B = no[b], tp = TIPOS[t] || {};
+                return `<line data-i="${i}" data-a="${a}" data-b="${b}" data-tipo="${t}" x1="${A.x.toFixed(1)}" y1="${A.y.toFixed(1)}" x2="${B.x.toFixed(1)}" y2="${B.y.toFixed(1)}"
+                  stroke="${tp.cor}"${tp.traco ? ` stroke-dasharray="${tp.traco}"` : ""}><title>${esc(T(A.p.nome))} · ${esc(T(B.p.nome))}: ${esc(T(rot))}</title></line>`;
+              }).join("")}</g>
+              <g class="rel-nos">${nos.map((n) => `
+                <g class="rel-no${n.p.misterio ? " misterio" : ""}" data-id="${n.id}" transform="translate(${n.x.toFixed(1)} ${n.y.toFixed(1)})" tabindex="0" role="button" aria-label="${esc(T(n.p.nome))}">
+                  <circle class="rel-halo" r="${n.r + 7}"/>
+                  <image href="${esc(n.p.imagem)}" x="${-n.r}" y="${-n.r}" width="${n.r * 2}" height="${n.r * 2}" preserveAspectRatio="xMidYMin slice" clip-path="url(#rel-clip)"
+                    onerror="this.setAttribute('href','${fallback(n.p)}')"/>
+                  <circle class="rel-aro" r="${n.r}" stroke="${COR_GRUPO[n.p.grupo] || "#ccc"}"/>
+                  <text y="${n.r + 17}">${esc(curto(n.p))}</text>
+                </g>`).join("")}</g>
+            </svg>
+            <div class="rel-zoom">
+              <button type="button" data-zoom-rel="1" aria-label="+">+</button>
+              <button type="button" data-zoom-rel="-1" aria-label="−">−</button>
+              <button type="button" data-zoom-rel="0" aria-label="${esc(U("limpar"))}">⟲</button>
+            </div>
+          </div>
+          <aside class="rel-info" id="rel-info" aria-live="polite"></aside>
+        </div>
+        <div class="rel-grupos">${Object.entries(COR_GRUPO).filter(([g]) => S.grupos[g]).map(([g, c]) => `<span style="--c:${c}"><i></i>${esc(T(S.grupos[g]))}</span>`).join("")}</div>
+      </div>`;
+
+    const svg = $("#rel-svg"), info = $("#rel-info");
+    const ocultos = new Set();
+    let sel = null;
+    const infoPadrao = () => {
+      info.innerHTML = `<h2 class="sub">${esc(U("mapaRelacoes"))}</h2><p>${esc(U("dicaRelacoes"))}</p>
+        <p class="miudo">${nos.length} ${esc(U("personagensCriados"))} · ${arestas.length} ${esc(U("ligacoes"))}</p>`;
+    };
+    function selecionar(id, rolar) {
+      sel = id && no[id] ? id : null;
+      svg.classList.toggle("foco", !!sel);
+      svg.querySelectorAll(".rel-no").forEach((g) => g.classList.remove("ativo", "vizinho"));
+      svg.querySelectorAll("line").forEach((l) => l.classList.remove("ativo"));
+      const url = new URL(location.href);
+      if (!sel) { infoPadrao(); url.searchParams.delete("id"); history.replaceState(null, "", url); return; }
+      url.searchParams.set("id", sel); history.replaceState(null, "", url);
+      const n = no[sel];
+      svg.querySelector(`.rel-no[data-id="${sel}"]`).classList.add("ativo");
+      const minhas = arestas.map((r, i) => ({ r, i })).filter(({ r }) => (r[0] === sel || r[1] === sel) && !ocultos.has(r[2]));
+      minhas.forEach(({ r, i }) => {
+        svg.querySelector(`line[data-i="${i}"]`).classList.add("ativo");
+        svg.querySelector(`.rel-no[data-id="${r[0] === sel ? r[1] : r[0]}"]`).classList.add("vizinho");
+      });
+      info.innerHTML = `
+        <div class="rel-quem">${img(n.p.imagem, n.p.nome, n.p.cor)}
+          <div><span class="etiqueta">${esc(T(S.grupos[n.p.grupo]))}</span><h2>${esc(T(n.p.nome))}</h2><p class="miudo">${esc(T(n.p.papel))}</p></div></div>
+        <ul class="rel-lista">${minhas.map(({ r }) => {
+          const outro = acharPersonagem(r[0] === sel ? r[1] : r[0]); const tp = TIPOS[r[2]];
+          return `<li><button type="button" data-ir-rel="${esc(outro.id)}" style="--c:${tp.cor}">
+            ${img(outro.imagem, outro.nome, outro.cor)}<span><b>${esc(T(outro.nome))}</b><small><i></i>${esc(T(r[3]))}</small></span></button></li>`;
+        }).join("")}</ul>
+        <div class="caixa-acoes"><button type="button" class="botao" data-ficha="${esc(sel)}">${esc(U("verFicha"))}</button>
+          <button type="button" class="botao botao-linha" data-limpar>${esc(U("limpar"))}</button></div>`;
+      if (rolar && matchMedia("(max-width: 860px)").matches) info.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    // zoom e arrastar (mexe no viewBox)
+    // o viewBox acompanha a proporção da caixa, então o mapa nunca fica achatado
+    let vb = { x: 0, y: 0, w: W, h: H }, cheioW = W;
+    const asp = () => (svg.clientHeight || 1) / (svg.clientWidth || 1);
+    const aplicar = () => svg.setAttribute("viewBox", `${vb.x.toFixed(1)} ${vb.y.toFixed(1)} ${vb.w.toFixed(1)} ${vb.h.toFixed(1)}`);
+    const limitar = () => {
+      const cx = Math.max(bx0, Math.min(bx1, vb.x + vb.w / 2)), cy = Math.max(by0, Math.min(by1, vb.y + vb.h / 2));
+      vb.x = cx - vb.w / 2; vb.y = cy - vb.h / 2;
+    };
+    // enquadra só a área ocupada pelos personagens
+    const bx0 = Math.min(...nos.map((n) => n.x - n.r)) - 30, bx1 = Math.max(...nos.map((n) => n.x + n.r)) + 30;
+    const by0 = Math.min(...nos.map((n) => n.y - n.r)) - 30, by1 = Math.max(...nos.map((n) => n.y + n.r)) + 50;
+    const BW = bx1 - bx0, BH = by1 - by0;
+    const inteiro = () => {
+      const a = asp();
+      vb = a > BH / BW ? { x: bx0, w: BW, h: BW * a, y: by0 + (BH - BW * a) / 2 } : { y: by0, h: BH, w: BH / a, x: bx0 + (BW - BH / a) / 2 };
+      cheioW = vb.w; aplicar();
+    };
+    const zoom = (f, cx = vb.x + vb.w / 2, cy = vb.y + vb.h / 2) => {
+      const nw = Math.max(cheioW / 6, Math.min(cheioW, vb.w / f)), k = nw / vb.w;
+      vb = { x: cx - (cx - vb.x) * k, y: cy - (cy - vb.y) * k, w: nw, h: nw * asp() };
+      limitar(); aplicar();
+    };
+    const centrarEm = (id, w) => { const n = no[id]; if (!n) return; vb.w = w; vb.h = w * asp(); vb.x = n.x - w / 2; vb.y = n.y - vb.h / 2; limitar(); aplicar(); };
+    inteiro();
+    const pequeno = () => svg.clientWidth < 700;
+    if (pequeno()) centrarEm(new URLSearchParams(location.search).get("id") || "jane", cheioW / 2.4);
+    addEventListener("resize", () => { const cx = vb.x + vb.w / 2, cy = vb.y + vb.h / 2, f = cheioW / vb.w; inteiro(); vb.w = cheioW / f; vb.h = vb.w * asp(); vb.x = cx - vb.w / 2; vb.y = cy - vb.h / 2; limitar(); aplicar(); });
+    let arrasto = null, moveu = false;
+    svg.addEventListener("pointerdown", (e) => { arrasto = { x: e.clientX, y: e.clientY, vx: vb.x, vy: vb.y }; moveu = false; });
+    addEventListener("pointermove", (e) => {
+      if (!arrasto) return;
+      const dx = e.clientX - arrasto.x, dy = e.clientY - arrasto.y;
+      if (Math.abs(dx) + Math.abs(dy) > 5) { moveu = true; svg.classList.add("arrastando"); }
+      if (!moveu) return;
+      const k = vb.w / svg.clientWidth;
+      vb.x = arrasto.vx - dx * k; vb.y = arrasto.vy - dy * k; limitar(); aplicar();
+    });
+    addEventListener("pointerup", () => { arrasto = null; svg.classList.remove("arrastando"); });
+    svg.addEventListener("wheel", (e) => {
+      if (!e.ctrlKey && vb.w >= cheioW - 1) return; // sem zoom: a página rola normalmente
+      e.preventDefault();
+      const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+      const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      zoom(e.deltaY < 0 ? 1.2 : 1 / 1.2, p.x, p.y);
+    }, { passive: false });
+
+    main.addEventListener("click", (e) => {
+      const z = e.target.closest("[data-zoom-rel]");
+      if (z) { const v = +z.dataset.zoomRel; if (v) zoom(v > 0 ? 1.4 : 1 / 1.4); else inteiro(); return; }
+      const g = e.target.closest(".rel-no");
+      if (g && !moveu) { selecionar(g.dataset.id === sel ? null : g.dataset.id, true); return; }
+      const ir = e.target.closest("[data-ir-rel]"); if (ir) { selecionar(ir.dataset.irRel); return; }
+      const f = e.target.closest("[data-ficha]"); if (f) { abrirPersonagem(f.dataset.ficha); return; }
+      if (e.target.closest("[data-limpar]")) { selecionar(null); return; }
+      const t = e.target.closest("[data-tipo]");
+      if (t) {
+        const k = t.dataset.tipo, liga = ocultos.has(k);
+        liga ? ocultos.delete(k) : ocultos.add(k);
+        t.setAttribute("aria-pressed", liga);
+        svg.querySelectorAll(`line[data-tipo="${k}"]`).forEach((l) => l.classList.toggle("oculta", !liga));
+        selecionar(sel);
+      }
+    });
+    svg.addEventListener("keydown", (e) => { const g = e.target.closest(".rel-no"); if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); selecionar(g.dataset.id); } });
+    selecionar(new URLSearchParams(location.search).get("id"));
+  }
+
+  /* ---------- sobre o artista: sobre.html ---------- */
+  if (tipo === "sobre") {
+    const A = S.artista || {};
+    document.title = `${U("sobreArtista")} · ${S.nomeArtista}`;
+    const vitrine = ["jane", "asha", "lia", "lily", "fatboy", "cross"].map(acharPersonagem).filter(Boolean);
+    main.innerHTML = `
+      ${capa(S.banners.portfolio, U("sobreArtista"), S.nomeArtista, T(A.titulo))}
+      <section class="envolve faixa sobre-grade">
+        <div class="sobre-texto">
+          ${(A.bio || []).map((p) => `<p>${esc(T(p))}</p>`).join("")}
+          <dl class="sobre-numeros">
+            <div><dt>${esc(U("desenhandoDesde"))}</dt><dd>${esc(A.desde || "")}</dd></div>
+            <div><dt>${esc(U("personagensCriados"))}</dt><dd>${S.personagens.length}</dd></div>
+            <div><dt>${esc(U("locaisCriados"))}</dt><dd>${locaisVisiveis().length}</dd></div>
+            <div><dt>${esc(U("criaturasCriadas"))}</dt><dd>${S.criaturas.length}</dd></div>
+          </dl>
+          <div class="caixa-acoes">
+            <a class="botao" href="index.html#portfolio">${esc(U("verPortfolio"))} →</a>
+            <a class="botao botao-linha" href="index.html#encomendas">${esc(U("encomendar"))}</a>
+          </div>
+        </div>
+        <div class="sobre-vitrine">${vitrine.map((p, i) => `<button type="button" class="cartao-p" data-id="${esc(p.id)}" style="--giro:${[-3, 2, -1, 3, -2, 1][i]}deg">${img(p.imagem, p.nome, p.cor)}</button>`).join("")}</div>
+      </section>
+      <section class="envolve faixa">
+        <h2>${esc(U("redesSociais"))}</h2>
+        ${window.LL.redesHTML("redes redes-grandes")}
+      </section>`;
+  }
+
   /* ---------- página de eventos ---------- */
   if (tipo === "eventos") {
     document.title = `${U("menu.eventos")} · Lowen Lake`;
