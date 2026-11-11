@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Source+Sans+3:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=3">
+<link rel="stylesheet" href="css/estilo.css?v=4">
 </head>
 <body>
 
@@ -46,8 +46,16 @@
       <div class="painel-cabeca"><p class="numero">02</p><h2 data-ui="mapa"></h2><p class="painel-sub" data-ui="mapaSub"></p></div>
       <div class="mapa-area">
         <div class="mapa-moldura" id="mapaMoldura">
-          <img class="mapa-img" data-src="mapa.imagem" alt="">
-          <div class="mapa-pinos" id="mapaPinos"></div>
+          <div class="mapa-zoom" id="mapaZoom">
+            <img class="mapa-img" data-src="mapa.imagem" alt="" draggable="false">
+            <div class="mapa-pinos" id="mapaPinos"></div>
+          </div>
+          <div class="mapa-controles">
+            <button id="zoomMais" aria-label="Ampliar">+</button>
+            <button id="zoomMenos" aria-label="Reduzir">−</button>
+            <button id="zoomReset" aria-label="Ver mapa inteiro">⤢</button>
+          </div>
+          <p class="mapa-dica" data-ui="dicaZoom"></p>
         </div>
         <aside class="mapa-cartao" id="mapaCartao" aria-live="polite"></aside>
       </div>
@@ -105,8 +113,8 @@
   <figure><img id="lightboxImg" alt=""><figcaption id="lightboxLegenda"></figcaption></figure>
 </div>
 
-<script src="js/dados.js?v=3"></script>
-<script src="js/creditos-sons.js?v=3"></script>
-<script src="js/app.js?v=3"></script>
+<script src="js/dados.js?v=4"></script>
+<script src="js/creditos-sons.js?v=4"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
