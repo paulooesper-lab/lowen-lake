@@ -15,8 +15,9 @@ Local: dois cliques no `index.html`, ou `python -m http.server 8533` dentro da p
 7. **História**: linha do tempo com fotos antigas.
 8. **Camping**: 4 opções, regras dos ursos e um checklist "o que levar" (fica salvo no navegador).
 9. **Guia do parque**: abas Equipe (com a líder escoteira Cora Benning em destaque), Boas maneiras, Regras, Caça e pesca, e Como chegar.
-10. **Atividades**: jogos "De quem é essa pegada?" e "Quem está cantando?".
-11. **Créditos**: inclui o autor e a licença de cada som.
+10. **Licença**: gerador de licença de **pesca** e de **caça** do condado de Lowen Lake. A pessoa preenche nome, nascimento, altura, olhos, cidade e permissões e escolhe uma foto (a foto não sai do navegador). O site desenha frente e verso no tamanho de documento de carteira dos EUA (CR80, 85,6 × 54 mm, 300 dpi). Dá para baixar cada lado em PNG ou usar "Imprimir em tamanho real". O código fica em `js/licenca.js` (cores, permissões e regras de cada tipo no objeto `TIPOS`); as artes ficam em `img/licenca/` (truta, veado e pato de Lowen Lake) e o selo em `img/marca/selo-fw.png`. O cartão traz "SOUVENIR · NOT A VALID LICENSE" para não ser confundido com documento oficial.
+11. **Atividades**: jogos "De quem é essa pegada?" e "Quem está cantando?".
+12. **Créditos**: inclui o autor e a licença de cada som.
 
 No topo ficam o **seletor de estação** (troca a foto de abertura, os mapas e o efeito; o padrão segue o mês atual), o botão **Ambiente** (floresta de dia, riacho ou noite, em loop) e o **PT/EN**.
 
