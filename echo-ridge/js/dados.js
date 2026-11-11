@@ -38,6 +38,9 @@ window.ER = {
       { id: "ski", x: 14, y: 17, icone: "esqui", foto: "img/postais/ski.jpg", nome: "Echo Peak Ski Resort",
         tipo: { pt: "Estação de esqui", en: "Ski resort" },
         texto: { pt: "A única estação de esqui do condado: chalé de troncos, teleférico dos anos 70 que range e pistas entre pinheiros. Neve de dezembro a março.", en: "The county's only ski resort: a log lodge, a creaky 1970s chairlift and runs through the pines. Snow from December to March." } },
+      { id: "alces", x: 29, y: 25, icone: "alce", foto: "img/fauna/mamiferos/alce.jpg", nome: { pt: "Prado dos Alces", en: "Moose Meadow" },
+        tipo: { pt: "Observação de fauna", en: "Wildlife viewing" },
+        texto: { pt: "O brejo frio logo abaixo da estação de esqui, onde vivem os únicos alces do condado. Melhor hora: amanhecer. No inverno eles atravessam as pistas e os pisteiros param tudo para esperar.", en: "The cold bog just below the ski resort, home to the county's only moose. Best time: dawn. In winter they cross the ski runs and the patrol stops everything to wait." } },
       { id: "dead-pine", x: 50, y: 20, icone: "lago", foto: "img/postais/dead-pine-lake.jpg", nome: "Dead Pine Lake",
         tipo: { pt: "Lago de montanha", en: "Mountain lake" },
         texto: { pt: "Lago escuro cercado de pinheiros secos. As trilhas que levam até ele às vezes levam a lugar nenhum. Dizem que é território da Drypine Hag.", en: "A dark lake ringed by dead pines. Trails that lead there sometimes lead nowhere. They say it's Drypine Hag territory." } },
@@ -139,7 +142,7 @@ window.ER = {
       { id: "raposa", imagem: "img/fauna/mamiferos/raposa.jpg", nome: { pt: "Raposa-vermelha", en: "Red fox" }, cientifico: "Vulpes vulpes",
         texto: { pt: "Pula de cabeça na neve para pegar ratos que ouve debaixo dela.", en: "Dives headfirst into snow to catch mice it hears underneath." },
         tamanho: "90–110 cm", onde: { pt: "Campos e estradas", en: "Fields and roadsides" } },
-      { id: "coiote", imagem: "img/fauna/mamiferos/coiote.jpg", nome: { pt: "Coiote", en: "Coyote" }, cientifico: "Canis latrans",
+      { id: "coiote", imagem: "img/fauna/mamiferos/coiote.jpg", som: "audio/fauna/coiote.mp3", nome: { pt: "Coiote", en: "Coyote" }, cientifico: "Canis latrans",
         texto: { pt: "Os uivos em coro nas noites frias ecoam pelos vales e parecem vir de dezenas de animais. Geralmente são três.", en: "Their choruses on cold nights echo through the valleys and sound like dozens of animals. Usually it's three." },
         tamanho: "1–1,3 m", onde: { pt: "Estradas madeireiras", en: "Logging roads" } },
       { id: "lince", imagem: "img/fauna/mamiferos/lince.jpg", nome: { pt: "Lince-pardo (bobcat)", en: "Bobcat" }, cientifico: "Lynx rufus",
@@ -151,6 +154,9 @@ window.ER = {
       { id: "castor", imagem: "img/fauna/mamiferos/castor.jpg", nome: { pt: "Castor", en: "Beaver" }, cientifico: "Castor canadensis",
         texto: { pt: "Engenheiro dos riachos: suas represas criam os lagos rasos onde nadam as trutas.", en: "The creeks' engineer: its dams create the shallow ponds where the trout swim." },
         tamanho: "1–1,2 m", onde: { pt: "Riachos e lagos", en: "Creeks and ponds" } },
+      { id: "alce", imagem: "img/fauna/mamiferos/alce.jpg", som: "audio/fauna/alce.mp3", nome: { pt: "Alce", en: "Moose" }, cientifico: "Alces alces americana",
+        texto: { pt: "O maior animal da serra vive só no extremo norte, nos brejos frios logo abaixo da Echo Peak Ski Resort. No inverno atravessa as pistas de manhã cedo, e os pisteiros esperam ele passar. Nunca chegue perto: um alce assustado é mais perigoso que um urso.", en: "The ridge's largest animal lives only in the far north, in the cold bogs just below Echo Peak Ski Resort. In winter it crosses the ski runs at dawn, and the patrol waits for it to pass. Never get close: a startled moose is more dangerous than a bear." },
+        tamanho: { pt: "até 2,1 m de altura", en: "up to 2.1 m tall" }, onde: { pt: "Prado dos Alces (norte)", en: "Moose Meadow (north)" } },
     ] },
 
     { id: "aves", nome: { pt: "Aves", en: "Birds" }, especies: [
@@ -202,6 +208,9 @@ window.ER = {
       { id: "salamandra-vermelha", imagem: "img/fauna/peixes/salamandra-vermelha.jpg", nome: { pt: "Salamandra-vermelha", en: "Red salamander" }, cientifico: "Pseudotriton ruber",
         texto: { pt: "Vermelho-vivo com pintas pretas, se esconde debaixo das pedras molhadas das nascentes.", en: "Bright red with black spots, it hides under wet rocks at the springs." },
         tamanho: "10–18 cm", onde: { pt: "Nascentes", en: "Springs" } },
+      { id: "ra-touro", imagem: "img/fauna/peixes/ra-touro.jpg", som: "audio/fauna/ra-touro.mp3", nome: { pt: "Rã-touro", en: "American bullfrog" }, cientifico: "Lithobates catesbeianus",
+        texto: { pt: "O \"mugido\" grave que sai dos lagos nas noites de verão é dela. Os campistas de primeira viagem juram que é um bicho enorme.", en: "The deep \"moo\" coming from the ponds on summer nights is hers. First-time campers swear it's a huge beast." },
+        tamanho: "9–15 cm", onde: { pt: "Lagos e brejos", en: "Ponds and marshes" } },
     ] },
 
     { id: "repteis", nome: { pt: "Répteis", en: "Reptiles" }, especies: [
@@ -235,40 +244,213 @@ window.ER = {
       { id: "besouro-veado", imagem: "img/fauna/insetos/besouro-veado.jpg", nome: { pt: "Besouro-veado", en: "Stag beetle" }, cientifico: "Lucanus elaphus",
         texto: { pt: "As mandíbulas dos machos parecem galhadas. Passa anos como larva dentro de troncos podres.", en: "Males' jaws look like antlers. Spends years as a grub inside rotting logs." },
         tamanho: "4–6 cm", onde: { pt: "Troncos podres", en: "Rotting logs" } },
-      { id: "cigarra", imagem: "img/fauna/insetos/cigarra.jpg", nome: { pt: "Cigarra", en: "Cicada" }, cientifico: "Neotibicen sp.",
+      { id: "cigarra", imagem: "img/fauna/insetos/cigarra.jpg", som: "audio/fauna/cigarra.mp3", nome: { pt: "Cigarra", en: "Cicada" }, cientifico: "Neotibicen sp.",
         texto: { pt: "O barulho das tardes de verão. Junto com as esperanças, faz o coro das noites quentes.", en: "The sound of summer afternoons. With the katydids, it makes the chorus of warm nights." },
         tamanho: "3–5 cm", onde: { pt: "Copas das árvores", en: "Treetops" } },
+      { id: "esperanca", imagem: "img/fauna/insetos/esperanca.jpg", som: "audio/fauna/esperanca.mp3", nome: { pt: "Esperança-verdadeira", en: "Common true katydid" }, cientifico: "Pterophylla camellifolia",
+        texto: { pt: "Parece uma folha verde com pernas. À noite, repete \"katy-did, katy-didn't\" sem parar, como se discutisse com a vizinha.", en: "Looks like a green leaf with legs. At night it repeats \"katy-did, katy-didn't\" nonstop, as if arguing with the neighbor." },
+        tamanho: "4–5 cm", onde: { pt: "Copas, à noite", en: "Treetops, at night" } },
     ] },
 
-    { id: "lendas", nome: { pt: "Não confirmados", en: "Unconfirmed" }, aviso: { pt: "Registros enviados por moradores. O museu não confirma nem desmente.", en: "Records sent in by locals. The museum neither confirms nor denies." }, especies: [
-      { id: "puma-host", imagem: "img/fauna/lendas/puma-host.jpg", nome: "Puma Host", cientifico: { pt: "Puma branco (leucístico?)", en: "White cougar (leucistic?)" },
-        texto: { pt: "Um puma totalmente branco visto em Northend Fork e Blue Pines. Pode ser só um animal raro. Pode não ser.", en: "An all-white cougar seen at Northend Fork and Blue Pines. Could just be a rare animal. Could not." },
-        tamanho: { pt: "Tamanho de puma", en: "Cougar-sized" }, onde: "Northend Fork" },
-      { id: "aguia-vermelha", imagem: "img/fauna/lendas/aguia-vermelha.jpg", nome: { pt: "Águia Vermelha", en: "Red Eagle" }, cientifico: "?",
-        texto: { pt: "Plumagem ferrugem e olhos dourados. Aparecer sobre o vale seria sinal de mudança. Ninguém a fotografou direito.", en: "Rust-colored plumage and golden eyes. Seeing it over the valley is a sign of change. Nobody has photographed it properly." },
-        tamanho: { pt: "Tamanho de águia", en: "Eagle-sized" }, onde: { pt: "Céus de Echo Ridge", en: "Echo Ridge skies" } },
-      { id: "white-moth", imagem: "img/fauna/lendas/white-moth.jpg", nome: "White Moth Man", cientifico: "?",
-        texto: { pt: "Figura alta e pálida com asas de mariposa, vista no alto dos pinheiros perto de Echo Falls. Presságio, dizem.", en: "A tall, pale figure with moth wings, seen atop the pines near Echo Falls. An omen, they say." },
-        tamanho: "1,80 m", onde: "Echo Falls" },
-    ] },
   ],
 
-  /* ---------- PAINEL 6 · VISITE ---------- */
-  visite: {
-    imagem: "img/postais/sr55.jpg",
-    blocos: [
-      { titulo: { pt: "Estações", en: "Seasons" }, lista: {
-        pt: ["Primavera: cachoeiras cheias e perus gorgolejando", "Verão: trilhas, pesca de truta e vaga-lumes (junho)", "Outono: bordos vermelhos e neblina até o meio-dia", "Inverno: neve, esqui e a SR-55 dependendo do limpa-neve SI-1"],
-        en: ["Spring: full waterfalls and gobbling turkeys", "Summer: hiking, trout fishing and fireflies (June)", "Fall: red maples and fog until noon", "Winter: snow, skiing and SR-55 relying on the SI-1 snowplow"] } },
-      { titulo: { pt: "Trilhas", en: "Trails" }, lista: {
-        pt: ["Echo Ridge Trail Explorer: até o mirante", "Pine Ridge Trail R-87: longa, entre os pinheiros", "Trilha da Cachoeira: até Echo Falls", "Estradas madeireiras: boas para Jeep, ruins para pneus"],
-        en: ["Echo Ridge Trail Explorer: up to the lookout", "Pine Ridge Trail R-87: long, through the pines", "Falls Trail: up to Echo Falls", "Logging roads: great for Jeeps, bad for tires"] } },
-      { titulo: { pt: "Como chegar", en: "Getting here" }, lista: {
-        pt: ["De carro pela SR-55 (Echo Ridge Road), saindo de Lowen Lake", "De hidroavião, saindo da marina de Lakeshore Bay", "No inverno, confira se a estrada está aberta"],
-        en: ["By car on SR-55 (Echo Ridge Road), from Lowen Lake", "By seaplane, from the Lakeshore Bay marina", "In winter, check whether the road is open"] } },
-      { titulo: { pt: "Regras da montanha", en: "Mountain rules" }, lista: {
-        pt: ["Guarde a comida longe dos ursos", "Não suba a Trilha da Cachoeira depois do escurecer", "Não pare o carro perto das antenas", "Não tire nada do Great Pine", "Se o eco demorar demais, volte"],
-        en: ["Keep food away from bears", "Don't take the Falls Trail after dark", "Don't stop your car near the antennas", "Don't take anything from the Great Pine", "If the echo takes too long, turn back"] } },
+  /* ---------- ESTAÇÕES ----------
+     O seletor no topo troca a foto de abertura, o mapa e o efeito animado do Início.
+     meses = meses (1–12) em que a estação é escolhida automaticamente. */
+  estacoes: [
+    { id: "primavera", nome: { pt: "Primavera", en: "Spring" }, meses: [3, 4, 5], hero: "img/hero/primavera.jpg", mapa: "img/mapa/primavera.jpg", efeito: "petalas",
+      dicas: { pt: ["Cachoeiras no volume máximo", "Rododendros e louros floridos nas trilhas", "Perus gorgolejando de manhã", "Ursos saindo da toca: guarde a comida"], en: ["Waterfalls at full volume", "Rhododendron and laurel blooming on the trails", "Turkeys gobbling in the morning", "Bears leaving their dens: lock up your food"] } },
+    { id: "verao", nome: { pt: "Verão", en: "Summer" }, meses: [6, 7, 8], hero: "img/hero/inicio.jpg", mapa: "img/mapa/base.jpg", efeito: "vagalumes",
+      dicas: { pt: ["Vaga-lumes sincronizados em junho", "Pesca de truta nos riachos gelados", "Hidroavião voando todo dia", "Tempestades à tarde: saia cedo das trilhas"], en: ["Synchronous fireflies in June", "Trout fishing in the icy creeks", "Seaplane flying every day", "Afternoon storms: leave the trails early"] } },
+    { id: "outono", nome: { pt: "Outono", en: "Fall" }, meses: [9, 10, 11], hero: "img/hero/outono.jpg", mapa: "img/mapa/outono.jpg", efeito: "folhas",
+      dicas: { pt: ["Bordos vermelhos na SR-55", "Neblina até o meio-dia", "Temporada de caça: use laranja", "Alces no cio: mantenha distância"], en: ["Red maples along SR-55", "Fog until noon", "Hunting season: wear orange", "Moose rut: keep your distance"] } },
+    { id: "inverno", nome: { pt: "Inverno", en: "Winter" }, meses: [12, 1, 2], hero: "img/hero/inverno.jpg", mapa: "img/mapa/inverno.jpg", efeito: "neve",
+      dicas: { pt: ["Esqui e snowboard na Echo Peak", "Patinação no lago congelado", "Alces cruzando as pistas de manhã", "SR-55 depende do limpa-neve SI-1"], en: ["Skiing and snowboarding at Echo Peak", "Skating on the frozen lake", "Moose crossing the runs at dawn", "SR-55 relies on the SI-1 snowplow"] } },
+  ],
+
+  /* ---------- PAISAGEM SONORA (botão "Ambiente" no topo) ---------- */
+  ambientes: [
+    { id: "dia", nome: { pt: "Floresta de dia", en: "Forest by day" }, arquivo: "audio/ambiente/floresta-dia.mp3" },
+    { id: "riacho", nome: { pt: "Riacho", en: "Creek" }, arquivo: "audio/ambiente/riacho.mp3" },
+    { id: "noite", nome: { pt: "Noite na serra", en: "Mountain night" }, arquivo: "audio/ambiente/noite.mp3" },
+  ],
+
+  /* ---------- TRILHAS (camada do mapa) ----------
+     pontos = [x, y] em % do mapa; perfil = altitude (m) ao longo do caminho. */
+  trilhas: [
+    { id: "explorer", nome: "Echo Ridge Trail Explorer", cor: "#e0703a", dificuldade: { pt: "Moderada", en: "Moderate" }, distancia: "6,4 km", tempo: "3 h", desnivel: "+420 m",
+      pontos: [[15, 80], [22, 74], [32, 70], [42, 66], [50, 60], [58, 56], [66, 51], [71, 45], [74, 40]],
+      perfil: [620, 640, 670, 700, 760, 830, 900, 960, 1010, 1040],
+      texto: { pt: "O passeio clássico: sai do Cedar Bend Campground, cruza o Crooked River por uma ponte pênsil e sobe pela mata até o mirante. Foi a rota da Echo Ridge Expedition.", en: "The classic hike: leaves Cedar Bend Campground, crosses Crooked River on a suspension bridge and climbs through the woods to the lookout. It was the Echo Ridge Expedition route." },
+      destaques: { pt: ["Ponte pênsil sobre o Crooked River", "Vista do Big Blue Lake no mirante", "Lagartos tomando sol no corrimão"], en: ["Suspension bridge over Crooked River", "Big Blue Lake view from the lookout", "Lizards sunning on the railing"] } },
+    { id: "cachoeira", nome: { pt: "Trilha da Cachoeira", en: "Falls Trail" }, cor: "#3d9fc4", dificuldade: { pt: "Fácil", en: "Easy" }, distancia: "3,1 km", tempo: "1 h 30", desnivel: "+280 m",
+      pontos: [[63, 88], [60, 80], [57, 72], [57, 63], [55, 54], [53, 46], [53, 41]],
+      perfil: [540, 560, 590, 640, 700, 760, 820],
+      texto: { pt: "Do píer do hidroavião, sobe ao lado do rio até a base de Echo Falls. Fácil, molhada e linda. Não suba depois do escurecer.", en: "From the seaplane dock it follows the river up to the base of Echo Falls. Easy, wet and beautiful. Don't go up after dark." },
+      destaques: { pt: ["Arco-íris na névoa da cachoeira", "Hellbenders debaixo das pedras do rio", "Avistamentos do White Moth Man"], en: ["Rainbows in the falls' mist", "Hellbenders under the river rocks", "White Moth Man sightings"] } },
+    { id: "r87", nome: "Pine Ridge Trail R-87", cor: "#8fc46a", dificuldade: { pt: "Difícil", en: "Hard" }, distancia: "14,2 km", tempo: "7 h", desnivel: "+780 m",
+      pontos: [[14, 17], [17, 27], [11, 38], [17, 45], [25, 46], [33, 38], [42, 28], [50, 20], [60, 22], [70, 28], [80, 33], [91, 39]],
+      perfil: [1350, 1290, 1180, 1100, 1060, 1150, 1240, 1300, 1280, 1350, 1420, 1380],
+      texto: { pt: "A travessia longa pelo alto da serra: da estação de esqui ao Great Pine, passa pelas minas e por Dead Pine Lake e termina na torre de vigia. Leve mapa de papel: o GPS falha perto do lago.", en: "The long traverse along the ridgetop: from the ski resort to the Great Pine, past the mines and Dead Pine Lake, ending at the fire tower. Bring a paper map: GPS fails near the lake." },
+      destaques: { pt: ["Great Pine e suas oferendas", "Dead Pine Lake (não saia da trilha)", "Pôr do sol na Hawk Knob Fire Tower"], en: ["The Great Pine and its offerings", "Dead Pine Lake (stay on the trail)", "Sunset at Hawk Knob Fire Tower"] } },
+    { id: "estrada", nome: { pt: "Estrada madeireira de Northend", en: "Northend logging road" }, cor: "#d8b45a", dificuldade: { pt: "Só 4x4", en: "4x4 only" }, distancia: "9 km", tempo: { pt: "1 h de Jeep", en: "1 h by Jeep" }, desnivel: "+430 m",
+      pontos: [[99, 84], [90, 79], [81, 74], [74, 66], [76, 57], [83, 49], [91, 39]],
+      perfil: [600, 640, 700, 780, 860, 950, 1030],
+      texto: { pt: "Estrada de terra dos tempos das madeireiras. Passa por Northend Fork, território do Puma Host. A bifurcação para as colinas das antenas está fechada com corrente.", en: "A dirt road from the logging days. It passes Northend Fork, Puma Host territory. The fork toward the antenna hills is chained shut." },
+      destaques: { pt: ["Pilhas de toras centenárias", "Pegadas de puma na lama", "Corrente na bifurcação: não passe"], en: ["Century-old log piles", "Cougar tracks in the mud", "Chain at the fork: don't pass"] } },
+  ],
+
+  /* ---------- PAINEL · LENDAS E AVISTAMENTOS ----------
+     criaturas: cor = cor do ponto no mapa. avistamentos: x/y em % do mapa. */
+  lendas: {
+    intro: { pt: "Echo Ridge tem mais histórias do que trilhas. Este é o registro dos avistamentos enviados aos guardas florestais desde 1883. O parque não confirma nenhum deles. Também não apaga nenhum.", en: "Echo Ridge has more stories than trails. This is the log of sightings reported to the rangers since 1883. The park confirms none of them. It doesn't delete any either." },
+    criaturas: [
+      { id: "white-moth", nome: "White Moth Man", cor: "#f2efe6", imagem: "img/fauna/lendas/white-moth.jpg", tamanho: "1,80 m", onde: "Echo Falls · Moth Chute",
+        texto: { pt: "Humanoide alto e pálido com asas de mariposa e olhos que refletem luz. Aparece no alto dos pinheiros perto de Echo Falls. Dizem que é presságio: ele surge antes de alguma coisa dar errado.", en: "A tall, pale humanoid with moth wings and eyes that reflect light. Appears atop the pines near Echo Falls. They say it's an omen: it shows up before something goes wrong." },
+        conselho: { pt: "Não aponte lanterna. Volte pela trilha sem correr.", en: "Don't shine a flashlight at it. Walk back down the trail without running." } },
+      { id: "puma-host", nome: "Puma Host", cor: "#e9d9b0", imagem: "img/fauna/lendas/puma-host.jpg", tamanho: { pt: "tamanho de puma", en: "cougar-sized" }, onde: "Northend Fork",
+        texto: { pt: "Um puma totalmente branco, talvez só leucístico. Segue carros na estrada madeireira e deixa pegadas claras demais na neve.", en: "An all-white cougar, maybe just leucistic. Follows cars on the logging road and leaves tracks that are too pale in the snow." },
+        conselho: { pt: "Fique grande, faça barulho e nunca dê as costas.", en: "Make yourself big, make noise and never turn your back." } },
+      { id: "aguia-vermelha", nome: { pt: "Águia Vermelha", en: "Red Eagle" }, cor: "#c9652d", imagem: "img/fauna/lendas/aguia-vermelha.jpg", tamanho: { pt: "tamanho de águia", en: "eagle-sized" }, onde: { pt: "Céus de Echo Ridge", en: "Echo Ridge skies" },
+        texto: { pt: "Plumagem cor de ferrugem e olhos dourados. Vê-la sobre o vale seria sinal de mudança. Ninguém conseguiu uma foto nítida.", en: "Rust-colored plumage and golden eyes. Seeing it over the valley is a sign of change. Nobody has a sharp photo." },
+        conselho: { pt: "Faça um pedido. Não custa nada.", en: "Make a wish. It costs nothing." } },
+      { id: "drypine", nome: "Drypine Hag", cor: "#9aa38b", imagem: "img/fauna/lendas/drypine-hag.jpg", tamanho: "1,60–1,80 m", onde: "Dead Pine Lake",
+        texto: { pt: "Uma figura feita de galhos secos, líquens e musgo que vive entre os pinheiros mortos. Cria trilhas falsas e círculos de cogumelos. Quem segue a trilha errada anda em círculos por horas.", en: "A figure made of dry branches, lichen and moss that lives among the dead pines. She makes false trails and mushroom rings. Whoever follows the wrong trail walks in circles for hours." },
+        conselho: { pt: "Nunca pise dentro de um círculo de cogumelos. Leve bússola.", en: "Never step inside a mushroom ring. Carry a compass." } },
+      { id: "mossfoot", nome: "Mossfoot", cor: "#6f8b4a", imagem: "img/fauna/lendas/mossfoot.jpg", tamanho: { pt: "até 3 m", en: "up to 3 m" }, onde: { pt: "Crooked River · Northend", en: "Crooked River · Northend" },
+        texto: { pt: "Criatura peluda e territorial, coberta de lama e musgo. Desce de Echo Ridge até Mossbend pelos riachos. Deixa pegadas de 45 cm e cheiro de pântano.", en: "A hairy, territorial creature covered in mud and moss. Travels from Echo Ridge down to Mossbend along the creeks. Leaves 45 cm footprints and a swamp smell." },
+        conselho: { pt: "Se sentir cheiro de pântano no alto da serra, mude de trilha.", en: "If you smell swamp high on the ridge, change trails." } },
+      { id: "gigantus", nome: "Gigantus Silvestris", cor: "#8a6a4a", imagem: "img/fauna/lendas/gigantus.jpg", tamanho: { pt: "mais de 3 m", en: "over 3 m" }, onde: { pt: "Minas e encostas nevadas", en: "Mines and snowy slopes" },
+        texto: { pt: "O \"pé-grande\" antigo de Echo Ridge, citado nos diários dos mineiros em 1883 e fotografado de longe em 1966. Ninguém sabe se é o mesmo bicho que o Mossfoot.", en: "Echo Ridge's old \"bigfoot\", mentioned in miners' diaries in 1883 and photographed from afar in 1966. Nobody knows if it's the same creature as Mossfoot." },
+        conselho: { pt: "Se ouvir pedras batendo à noite, não responda.", en: "If you hear rocks knocking at night, don't answer." } },
+      { id: "luzes", nome: { pt: "Luzes de Echo Ridge", en: "Echo Ridge Lights" }, cor: "#7fd6ff", imagem: "img/historia/1957-luzes.jpg", tamanho: "?", onde: { pt: "Sobre a Área 52", en: "Over Area 52" },
+        texto: { pt: "Três luzes paradas no céu sobre as colinas das antenas, vistas desde 1957. Foi por causa delas que a \"estação geológica\" foi construída.", en: "Three still lights in the sky over the antenna hills, seen since 1957. They're why the \"geological station\" was built." },
+        conselho: { pt: "Não pare o carro. Não filme. Ligue o rádio de novo depois da curva.", en: "Don't stop the car. Don't film. Turn the radio back on after the bend." } },
+    ],
+    avistamentos: [
+      { ano: 1883, criatura: "gigantus", x: 25, y: 46, local: { pt: "Minas que Sussurram", en: "Whispering Mines" }, testemunha: { pt: "Diário da Echo & Co. Mining", en: "Echo & Co. Mining diary" }, texto: { pt: "Mineiros fecham a galeria 3 depois de ver \"um homem peludo de três metros\" na entrada.", en: "Miners seal gallery 3 after seeing \"a ten-foot hairy man\" at the entrance." } },
+      { ano: 1921, criatura: "drypine", x: 50, y: 20, local: "Dead Pine Lake", testemunha: { pt: "Dois madeireiros", en: "Two loggers" }, texto: { pt: "Saem para uma caminhada de uma hora e voltam dois dias depois, jurando que a trilha mudava de lugar.", en: "Leave for a one-hour walk and come back two days later, swearing the trail kept moving." } },
+      { ano: 1957, criatura: "luzes", x: 82, y: 15, local: { pt: "Colinas das antenas", en: "Antenna hills" }, testemunha: { pt: "Família de Blue Pines", en: "A Blue Pines family" }, texto: { pt: "Três luzes paradas por 40 minutos. Uma semana depois, chegam os investigadores federais.", en: "Three lights hover for 40 minutes. A week later, federal investigators arrive." } },
+      { ano: 1966, criatura: "gigantus", x: 22, y: 24, local: { pt: "Encosta norte", en: "North slope" }, testemunha: { pt: "Dois caçadores", en: "Two hunters" }, texto: { pt: "A famosa foto granulada de uma silhueta enorme andando na neve.", en: "The famous grainy photo of a huge silhouette walking in the snow." } },
+      { ano: 1979, criatura: "white-moth", x: 16, y: 12, local: { pt: "Topo da Moth Chute", en: "Top of Moth Chute" }, testemunha: { pt: "Pisteiro da estação", en: "Ski patroller" }, texto: { pt: "Uma figura branca de asas abertas no topo da pista preta. A pista ganha o nome que tem hoje.", en: "A white figure with spread wings atop the black run. The run gets the name it has today." } },
+      { ano: 1984, criatura: "puma-host", x: 81, y: 74, local: "Northend Fork", testemunha: { pt: "Motorista de caminhão de toras", en: "Log truck driver" }, texto: { pt: "Um puma branco corre ao lado do caminhão por quase um quilômetro.", en: "A white cougar runs alongside the truck for almost a kilometer." } },
+      { ano: 1991, criatura: "mossfoot", x: 57, y: 63, local: "Crooked River", testemunha: { pt: "Pescadores de truta", en: "Trout anglers" }, texto: { pt: "Pegadas de 45 cm na margem e um cheiro forte de pântano.", en: "45 cm footprints on the bank and a strong swamp smell." } },
+      { ano: 1998, criatura: "aguia-vermelha", x: 74, y: 40, local: { pt: "Mirante", en: "Lookout" }, testemunha: { pt: "Turma de geografia", en: "A geography class" }, texto: { pt: "Uma águia cor de ferrugem passa rente ao mirante. A única foto saiu tremida.", en: "A rust-colored eagle skims past the lookout. The only photo came out blurry." } },
+      { ano: 2003, criatura: "drypine", x: 53, y: 23, local: "Dead Pine Lake", testemunha: { pt: "Guarda florestal", en: "A ranger" }, texto: { pt: "Um círculo perfeito de cogumelos aparece da noite para o dia ao lado da trilha R-87.", en: "A perfect mushroom ring appears overnight beside trail R-87." } },
+      { ano: 2009, criatura: "luzes", x: 90, y: 34, local: "Hawk Knob Fire Tower", testemunha: { pt: "Guarda da torre", en: "Tower ranger" }, texto: { pt: "O caderno da torre registra luzes por seis noites seguidas. As páginas somem depois.", en: "The tower logbook records lights six nights in a row. The pages go missing later." } },
+      { ano: 2014, criatura: "white-moth", x: 53, y: 41, local: "Echo Falls", testemunha: { pt: "Casal de campistas", en: "A camping couple" }, texto: { pt: "Olhos vermelhos no alto de um pinheiro ao lado da cachoeira. Na manhã seguinte, a ponte pênsil cai.", en: "Red eyes atop a pine next to the falls. The next morning, the suspension bridge collapses." } },
+      { ano: 2018, criatura: "puma-host", x: 15, y: 80, local: "Cedar Bend Campground", testemunha: { pt: "Câmera de trilha", en: "Trail camera" }, texto: { pt: "A câmera de trilha do camping registra um puma branco às 2h47.", en: "The campground's trail camera records a white cougar at 2:47 a.m." } },
+      { ano: 2021, criatura: "mossfoot", x: 76, y: 58, local: { pt: "Estrada de Northend", en: "Northend road" }, testemunha: { pt: "Câmera de trilha", en: "Trail camera" }, texto: { pt: "A foto mais clara até hoje: algo enorme e coberto de musgo atravessando um riacho.", en: "The clearest photo yet: something huge and moss-covered crossing a creek." } },
+      { ano: 2024, criatura: "aguia-vermelha", x: 63, y: 84, local: { pt: "Lago do píer", en: "Dock lake" }, testemunha: "Jane Walker", texto: { pt: "Durante a Echo Ridge Expedition, a Jane vê uma águia vermelha circulando o lago. A Asha não chegou a tempo de filmar.", en: "During the Echo Ridge Expedition, Jane sees a red eagle circling the lake. Asha didn't get there in time to film it." } },
+      { ano: 2025, criatura: "white-moth", x: 55, y: 37, local: "Echo Falls", testemunha: { pt: "Foto de celular", en: "Phone photo" }, texto: { pt: "A foto com flash que viralizou em Lowen Lake. O autor nunca se identificou.", en: "The flash photo that went viral in Lowen Lake. The author never came forward." } },
+      { ano: 2026, criatura: "luzes", x: 85, y: 12, local: { pt: "Colinas das antenas", en: "Antenna hills" }, testemunha: { pt: "Guarda Dale", en: "Ranger Dale" }, texto: { pt: "\"Três luzes paradas às 3h12. Não anotei. Oficialmente.\"", en: "\"Three still lights at 3:12 a.m. Didn't log it. Officially.\"" } },
+    ],
+    notas: { pt: ["Se a trilha parecer nova, ela não é.", "Pegada clara demais na neve = não siga.", "O rádio sempre morre na curva 14 da SR-55. Não é defeito.", "Ninguém mexe nas fitas do Great Pine. Ninguém.", "Contei 3 luzes de novo. Pedi café em dobro."],
+             en: ["If the trail looks new, it isn't.", "Track too pale in the snow = don't follow.", "The radio always dies at bend 14 of SR-55. It's not a defect.", "Nobody touches the ribbons on the Great Pine. Nobody.", "Counted 3 lights again. Asked for double coffee."] },
+    segredo: { url: "https://paulooesper-lab.github.io/lowen-lake/local.html?id=area52-dossie", dica: { pt: "Arquivo confidencial", en: "Classified file" } },
+  },
+
+  /* ---------- PAINEL · HISTÓRIA (linha do tempo) ---------- */
+  historia: [
+    { ano: { pt: "Antes de 1800", en: "Before 1800" }, imagem: "img/postais/great-pine.jpg", titulo: { pt: "Trilhas antigas", en: "Ancient trails" },
+      texto: { pt: "Muito antes das minas, a serra já era cruzada pelas trilhas dos povos nativos. O Great Pine já era velho.", en: "Long before the mines, the ridge was already crossed by the trails of the native peoples. The Great Pine was already old." } },
+    { ano: "1872", imagem: "img/historia/1880-mina.jpg", titulo: { pt: "Chegam os mineiros", en: "The miners arrive" },
+      texto: { pt: "A Echo & Co. Mining abre os primeiros túneis atrás de mica e cobre. Nasce a vila mineira que hoje é só ruína.", en: "Echo & Co. Mining digs the first tunnels for mica and copper. The mining village that is now just ruins is born." } },
+    { ano: "1883", imagem: "img/postais/minas.jpg", titulo: { pt: "A galeria 3", en: "Gallery 3" },
+      texto: { pt: "Os mineiros fecham uma galeria inteira depois de um avistamento. Desde então, as minas \"sussurram\".", en: "Miners seal an entire gallery after a sighting. Ever since, the mines \"whisper\"." } },
+    { ano: "1905–1925", imagem: "img/historia/1910-madeireira.jpg", titulo: { pt: "A era das madeireiras", en: "The logging era" },
+      texto: { pt: "Trens a vapor levam pinheiros centenários montanha abaixo. A estrada das toras vira, anos depois, a SR-55.", en: "Steam trains haul centuries-old pines down the mountain. The log road later becomes SR-55." } },
+    { ano: "1935", imagem: "img/historia/1935-torre.jpg", titulo: { pt: "A torre e as trilhas", en: "The tower and the trails" },
+      texto: { pt: "Jovens do Civilian Conservation Corps constroem a Hawk Knob Fire Tower e abrem as primeiras trilhas oficiais. A serra vira área protegida.", en: "Young Civilian Conservation Corps workers build Hawk Knob Fire Tower and open the first official trails. The ridge becomes a protected area." } },
+    { ano: "1957", imagem: "img/historia/1957-luzes.jpg", titulo: { pt: "As luzes", en: "The lights" },
+      texto: { pt: "Três luzes no céu atraem investigadores federais. Nas cavernas das colinas nasce uma \"estação geológica\": a Área 52.", en: "Three lights in the sky draw federal investigators. In the caves of the hills a \"geological station\" is born: Area 52." } },
+    { ano: "1971", imagem: "img/postais/ski.jpg", titulo: { pt: "Echo Peak abre", en: "Echo Peak opens" },
+      texto: { pt: "A estação de esqui é inaugurada com um teleférico de cadeiras duplas que range até hoje.", en: "The ski resort opens with a double chairlift that still creaks today." } },
+    { ano: "1979", imagem: "img/historia/1979-ski.jpg", titulo: { pt: "Moth Chute", en: "Moth Chute" },
+      texto: { pt: "Um avistamento no topo da pista preta dá nome à Moth Chute. A corrente da pista passa a se fechar sozinha.", en: "A sighting at the top of the black run names it Moth Chute. The run's chain starts closing by itself." } },
+    { ano: "1994", imagem: "img/postais/hidroaviao.jpg", titulo: { pt: "O hidroavião", en: "The seaplane" },
+      texto: { pt: "Começam os voos turísticos de Lakeshore Bay até o lago aos pés da serra. A regra número um nasce logo na primeira semana.", en: "Tourist flights from Lakeshore Bay to the lake at the foot of the ridge begin. Rule number one is born in the first week." } },
+    { ano: { pt: "Hoje", en: "Today" }, imagem: "img/curiosidades/jeep.jpg", titulo: "Echo Ridge Expedition",
+      texto: { pt: "Jane, Asha, Lia e Lily sobem até o mirante de Jeep. Atolam duas vezes. A Jane jura que viu a Águia Vermelha.", en: "Jane, Asha, Lia and Lily drive up to the lookout. They get stuck twice. Jane swears she saw the Red Eagle." } },
+  ],
+
+  /* ---------- PAINEL · CAMPING ---------- */
+  camping: {
+    intro: { pt: "Dormir em Echo Ridge é dormir com o eco: corujas, coiotes, a rã-touro do lago e, em junho, o céu cheio de vaga-lumes. Escolha seu lugar, leia as regras dos ursos e confira a lista do que levar.", en: "Sleeping in Echo Ridge means sleeping with the echo: owls, coyotes, the pond's bullfrog and, in June, a sky full of fireflies. Pick your spot, read the bear rules and check the packing list." },
+    locais: [
+      { id: "cedar", imagem: "img/camping/cedar-bend.jpg", nome: "Cedar Bend Campground", tipo: { pt: "Camping com estrutura", en: "Developed campground" },
+        vagas: { pt: "48 vagas (barraca e trailer)", en: "48 sites (tent and RV)" }, preco: { pt: "US$ 25 por noite", en: "US$ 25 per night" }, periodo: { pt: "Abril a outubro", en: "April to October" },
+        itens: { pt: ["Chuveiro quente", "Caixas anti-urso", "Anel de fogueira", "Lojinha", "Início da Trail Explorer"], en: ["Hot showers", "Bear boxes", "Fire rings", "Camp store", "Trail Explorer trailhead"] },
+        texto: { pt: "O mais procurado do vale, à beira do Crooked River. Em junho, reserve com meses de antecedência por causa dos vaga-lumes.", en: "The valley's favorite, on the Crooked River. In June, book months ahead because of the fireflies." } },
+      { id: "lago", imagem: "img/camping/lago.jpg", nome: "Lakeview Primitive Sites", tipo: { pt: "Camping selvagem", en: "Primitive camping" },
+        vagas: { pt: "8 áreas, só a pé ou de canoa", en: "8 sites, hike-in or canoe-in" }, preco: { pt: "Grátis com licença", en: "Free with permit" }, periodo: { pt: "Maio a setembro", en: "May to September" },
+        itens: { pt: ["Sem água tratada", "Leve tudo de volta", "Licença na estação dos guardas", "Mobelhas ao amanhecer"], en: ["No treated water", "Pack it all out", "Permit at the ranger station", "Loons at dawn"] },
+        texto: { pt: "Silêncio total à beira do lago do píer. Só você, a neblina da manhã e o lamento das mobelhas.", en: "Total silence by the dock lake. Just you, the morning fog and the loons' wail." } },
+      { id: "cabanas", imagem: "img/camping/cabanas.jpg", nome: "Hawk Knob Cabins", tipo: { pt: "Cabanas", en: "Cabins" },
+        vagas: { pt: "6 cabanas de troncos (até 6 pessoas)", en: "6 log cabins (up to 6 people)" }, preco: { pt: "US$ 95 por noite", en: "US$ 95 per night" }, periodo: { pt: "O ano todo", en: "Year-round" },
+        itens: { pt: ["Lareira de pedra", "Varanda com cadeiras de balanço", "Cozinha", "Lenha incluída"], en: ["Stone fireplace", "Porch with rocking chairs", "Kitchen", "Firewood included"] },
+        texto: { pt: "Para quem quer a montanha com teto e lareira. No inverno, a estrada até as cabanas depende do limpa-neve.", en: "For those who want the mountain with a roof and a fireplace. In winter, the road to the cabins depends on the snowplow." } },
+      { id: "noite", imagem: "img/camping/noite.jpg", nome: { pt: "Céu escuro de Echo Ridge", en: "Echo Ridge dark sky" }, tipo: { pt: "Destaque", en: "Highlight" },
+        vagas: { pt: "Qualquer camping", en: "Any campground" }, preco: { pt: "Grátis", en: "Free" }, periodo: { pt: "Noites sem lua", en: "Moonless nights" },
+        itens: { pt: ["Via Láctea a olho nu", "Lanterna com luz vermelha", "Sem luzes depois das 22h"], en: ["Milky Way to the naked eye", "Red-light flashlight", "No lights after 10 p.m."] },
+        texto: { pt: "Sem poluição luminosa, a Via Láctea aparece inteira. Se três estrelas ficarem paradas demais sobre as colinas, você está olhando para o lado errado.", en: "With no light pollution, the whole Milky Way shows up. If three stars stay too still over the hills, you're looking the wrong way." } },
+    ],
+    regrasImagem: "img/camping/urso.jpg",
+    regras: { pt: ["Toda comida, lixo e pasta de dente vão para a caixa anti-urso", "Fogueira só dentro do anel e apagada com água, não com terra", "Lenha local: não traga madeira de fora (pragas)", "Silêncio das 22h às 6h", "Cães sempre na guia", "Lavar louça a 60 m de rios e lagos"],
+             en: ["All food, trash and toothpaste go in the bear box", "Fires only inside the ring, put out with water, not dirt", "Local firewood: don't bring wood from elsewhere (pests)", "Quiet hours 10 p.m. to 6 a.m.", "Dogs always leashed", "Wash dishes 60 m from rivers and lakes"] },
+    checklist: { pt: ["Barraca e estacas", "Saco de dormir para 0 °C", "Isolante térmico", "Lanterna de cabeça + pilhas", "Casaco impermeável", "Fleece ou casaco quente", "Botas de trilha", "Fogareiro e gás", "Filtro de água", "Kit de primeiros socorros", "Mapa de papel e bússola", "Repelente", "Spray anti-urso", "Sacos de lixo"],
+                 en: ["Tent and stakes", "Sleeping bag rated to 0 °C", "Sleeping pad", "Headlamp + batteries", "Rain jacket", "Fleece or warm jacket", "Hiking boots", "Stove and fuel", "Water filter", "First aid kit", "Paper map and compass", "Bug spray", "Bear spray", "Trash bags"] },
+  },
+
+  /* ---------- PAINEL · GUIA DO PARQUE ----------
+     abas: equipe, boas maneiras, regras, caça e pesca, como chegar. */
+  guia: {
+    intro: { pt: "Tudo o que os guardas florestais gostariam que você lesse antes de chegar.", en: "Everything the rangers wish you'd read before you arrive." },
+    destaque: { nome: "Cora Benning", cargo: { pt: "Líder escoteira · Tropa 17 de Lowen Lake", en: "Scout leader · Lowen Lake Troop 17" }, imagem: "img/guia/escoteira.jpg", imagem2: "img/guia/escoteira-tropa.jpg",
+      texto: { pt: "Há 22 anos a Cora leva a Tropa 17 para acampar em Echo Ridge. Ensinou metade das crianças de Lowen Lake a usar bússola, acender fogueira com um fósforo só e voltar para casa pela mesma trilha. Voluntária do parque, ela comanda o mutirão de limpeza das trilhas todo mês de abril e é a primeira a ser chamada quando alguém se perde.", en: "For 22 years Cora has taken Troop 17 camping in Echo Ridge. She taught half the kids in Lowen Lake to use a compass, light a fire with a single match and come home on the same trail. A park volunteer, she leads the trail cleanup every April and is the first person called when someone gets lost." },
+      citacao: { pt: "\"A montanha não perdoa pressa. Ande devagar, olhe para trás de vez em quando e sempre saiba o caminho de volta.\"", en: "\"The mountain doesn't forgive hurry. Walk slow, look back now and then, and always know the way home.\"" },
+      fatos: { pt: ["22 anos de Tropa 17", "Mutirão de limpeza em abril", "Instrutora de orientação e primeiros socorros"], en: ["22 years with Troop 17", "Trail cleanup every April", "Orienteering and first-aid instructor"] } },
+    equipe: [
+      { nome: "Rosa Delgado", cargo: { pt: "Chefe dos guardas florestais", en: "Chief ranger" }, imagem: "img/guia/rosa.jpg",
+        texto: { pt: "Comanda a estação dos guardas há 9 anos. Conhece cada trilha, cada alce pelo nome e cada mentira de campista.", en: "Has run the ranger station for 9 years. Knows every trail, every moose by name and every camper's lie." } },
+      { nome: "Dale Whitaker", cargo: { pt: "Guarda da Hawk Knob Fire Tower", en: "Hawk Knob Fire Tower ranger" }, imagem: "img/guia/dale.jpg",
+        texto: { pt: "Passa a temporada inteira na torre vigiando incêndios. Anota tudo o que vê no céu. Quase tudo.", en: "Spends the whole season in the tower watching for fires. Logs everything he sees in the sky. Almost everything." } },
+      { nome: "Marcus Reed & Linda Hayes", cargo: { pt: "Patrulha de trilhas", en: "Trail patrol" }, imagem: "img/guia/equipe.jpg",
+        texto: { pt: "Percorrem as trilhas todos os dias, dão informação, socorrem torcedores de tornozelo e lembram todo mundo de guardar a comida.", en: "Walk the trails every day, give directions, help sprained ankles and remind everyone to store their food." } },
+    ],
+    boasManeiras: {
+      titulo: { pt: "Os 7 princípios de Não Deixe Rastros", en: "The 7 Leave No Trace principles" },
+      lista: { pt: ["Planeje antes de ir: tempo, trilha e horário de volta", "Ande e acampe só em superfícies firmes e trilhas marcadas", "Leve de volta todo o lixo, até casca de fruta", "Deixe o que encontrar: pedras, flores, penas e fitas do Great Pine", "Fogueira pequena, só nos anéis, e bem apagada", "Respeite os bichos: olhe de longe e nunca dê comida", "Pense nos outros: som baixo, ceda passagem e cumprimente na trilha"],
+               en: ["Plan ahead: weather, trail and return time", "Walk and camp only on durable surfaces and marked trails", "Pack out all trash, even fruit peels", "Leave what you find: rocks, flowers, feathers and the Great Pine's ribbons", "Small fires, only in rings, fully put out", "Respect wildlife: watch from afar and never feed it", "Be considerate: keep it quiet, yield and say hello on the trail"] },
+      etiqueta: { pt: ["Quem sobe tem preferência", "Cavalos têm preferência sobre todos", "Cães sempre na guia", "Drones proibidos em todo o parque", "Fones de ouvido, não caixinhas de som"], en: ["Uphill hikers have the right of way", "Horses have the right of way over everyone", "Dogs always leashed", "Drones banned throughout the park", "Headphones, not speakers"] } },
+    regras: { pt: ["Entrada gratuita; estacionamento US$ 5 por dia", "Proibido sair das trilhas marcadas em Dead Pine Lake", "Trilha da Cachoeira fechada do pôr do sol ao amanhecer", "Proibido parar o carro entre as curvas 12 e 16 da SR-55", "Área das colinas das antenas: acesso proibido", "Proibido alimentar qualquer animal", "Distância mínima: 50 m de ursos e alces, 25 m dos outros bichos", "Bebidas alcoólicas só nos campings", "Não tire nada do Great Pine", "Em caso de neblina densa, fique onde está e chame os guardas"],
+              en: ["Free entry; parking US$ 5 per day", "No leaving marked trails at Dead Pine Lake", "Falls Trail closed from sunset to sunrise", "No stopping your car between bends 12 and 16 of SR-55", "Antenna hills area: no access", "Feeding any animal is forbidden", "Minimum distance: 50 m from bears and moose, 25 m from other animals", "Alcohol only at campgrounds", "Don't take anything from the Great Pine", "In thick fog, stay put and call the rangers"] },
+    caca: {
+      texto: { pt: "A caça é permitida em partes do parque, só com licença estadual, curso de segurança e colete e boné laranja. É proibido caçar a menos de 150 m de trilhas, campings, cabanas e estradas, em toda a área da estação de esqui e no perímetro da \"estação geológica\".", en: "Hunting is allowed in parts of the park, only with a state license, a safety course and an orange vest and cap. Hunting is banned within 150 m of trails, campgrounds, cabins and roads, across the whole ski resort area and around the \"geological station\" perimeter." },
+      imagem: "img/guia/caca.jpg",
+      temporadas: [
+        { especie: { pt: "Veado-de-cauda-branca", en: "White-tailed deer" }, periodo: { pt: "Arco: set–nov · Rifle: nov–jan", en: "Bow: Sep–Nov · Rifle: Nov–Jan" }, status: { pt: "Licença estadual", en: "State license" } },
+        { especie: { pt: "Peru-selvagem", en: "Wild turkey" }, periodo: { pt: "Abril e maio (só machos)", en: "April and May (males only)" }, status: { pt: "Licença estadual", en: "State license" } },
+        { especie: { pt: "Urso-negro", en: "Black bear" }, periodo: { pt: "Outubro a dezembro", en: "October to December" }, status: { pt: "Licença especial por sorteio", en: "Special lottery permit" } },
+        { especie: { pt: "Alce", en: "Moose" }, periodo: "—", status: { pt: "PROIBIDO (população protegida)", en: "BANNED (protected population)" }, proibido: true },
+        { especie: { pt: "Puma e lince", en: "Cougar and bobcat" }, periodo: "—", status: { pt: "PROIBIDO", en: "BANNED" }, proibido: true },
+        { especie: { pt: "Águias e corujas", en: "Eagles and owls" }, periodo: "—", status: { pt: "PROIBIDO (lei federal)", en: "BANNED (federal law)" }, proibido: true },
+      ],
+      pesca: { pt: ["Licença de pesca estadual obrigatória a partir dos 16 anos", "Truta-de-riacho: só isca artificial e anzol sem farpa nos riachos nativos", "Tamanho mínimo das trutas: 18 cm · limite: 5 por dia", "Hellbender: se fisgar, solte na hora (espécie ameaçada)", "Pesca no gelo só com aviso dos guardas de que o gelo está firme"],
+               en: ["State fishing license required from age 16", "Brook trout: artificial lures and barbless hooks only in native streams", "Trout minimum size: 18 cm · limit: 5 per day", "Hellbender: if you hook one, release it right away (threatened species)", "Ice fishing only once rangers say the ice is solid"] },
+      imagemPesca: "img/guia/pesca.jpg" },
+    chegar: { pt: ["De carro: SR-55 (Echo Ridge Road) saindo de Lowen Lake, 40 min até o Cedar Bend", "De hidroavião: da marina de Lakeshore Bay até o píer do lago, 25 min", "Inverno: confira se a SR-55 está aberta antes de sair (limpa-neve SI-1)", "Estação dos guardas: km 14 da SR-55, aberta das 7h às 19h", "Rádio dos guardas: canal 16 · Emergência: 911", "Celular: sem sinal entre as curvas 12 e 16 da SR-55"],
+              en: ["By car: SR-55 (Echo Ridge Road) from Lowen Lake, 40 min to Cedar Bend", "By seaplane: from the Lakeshore Bay marina to the dock lake, 25 min", "Winter: check SR-55 is open before you leave (SI-1 snowplow)", "Ranger station: mile 14 of SR-55, open 7 a.m. to 7 p.m.", "Ranger radio: channel 16 · Emergency: 911", "Cell phones: no signal between bends 12 and 16 of SR-55"] },
+  },
+
+  /* ---------- PAINEL · ATIVIDADES (jogos) ---------- */
+  atividades: {
+    pegadas: [
+      { imagem: "img/pegadas/urso.jpg", resposta: "urso-negro", dica: { pt: "Cinco dedos e marcas de garras.", en: "Five toes and claw marks." } },
+      { imagem: "img/pegadas/puma.jpg", resposta: "puma", dica: { pt: "Redonda, quatro dedos, sem garras: felinos recolhem as unhas.", en: "Round, four toes, no claws: cats retract their claws." } },
+      { imagem: "img/pegadas/veado.jpg", resposta: "veado", dica: { pt: "Casco fendido em forma de coração.", en: "Split hoof shaped like a heart." } },
+      { imagem: "img/pegadas/raposa.jpg", resposta: "raposa", dica: { pt: "Pequena e oval, com garras finas.", en: "Small and oval, with thin claws." } },
+      { imagem: "img/pegadas/alce.jpg", resposta: "alce", dica: { pt: "Casco fendido enorme: duas vezes o de um veado.", en: "A huge split hoof: twice a deer's." } },
     ],
   },
 

@@ -49,5 +49,45 @@ window.ER_SONS = {
   "autor": "Jonathon Jongsma",
   "licenca": "CC BY-SA 3.0",
   "fonte": "https://commons.wikimedia.org/wiki/File%3ACorvus_corax_-_Northern_Raven_XC101590.mp3"
+ },
+ "alce": {
+  "autor": "Bwells",
+  "licenca": "Public domain",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3AMoose_mate.ogg"
+ },
+ "coiote": {
+  "autor": "Rybkovich",
+  "licenca": "CC BY-SA 4.0",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3APack_of_coyotes_howling.ogg"
+ },
+ "cigarra": {
+  "autor": "Ryan Hodnett",
+  "licenca": "CC BY-SA 4.0",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3ANorthern_Dog-day_Cicada_%28Neotibicen_canicularis%29_-_Guelph%2C_Ontario_2020-07-26.mp3"
+ },
+ "esperanca": {
+  "autor": "peterwchen",
+  "licenca": "CC BY 4.0",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3APterophylla_camellifolia_singing.wav"
+ },
+ "ra-touro": {
+  "autor": "Chris Harrison",
+  "licenca": "CC BY-NC-SA 4.0",
+  "fonte": "https://xeno-canto.org/899237"
+ },
+ "amb-riacho": {
+  "autor": "Amada44",
+  "licenca": "CC BY-SA 4.0",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3ASound_Effects_-_The_sound_of_a_small_stream.ogg"
+ },
+ "amb-dia": {
+  "autor": "Amada44 + cantos do site (gaio-azul, pica-pau, sabia-eremita)",
+  "licenca": "CC BY-SA 4.0",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3ASound_Effects_-_The_sound_of_a_small_stream.ogg"
+ },
+ "amb-noite": {
+  "autor": "Ryan Hodnett + cantos do site (bacurau, coruja-barrada, esperanca)",
+  "licenca": "CC BY-SA 4.0",
+  "fonte": "https://commons.wikimedia.org/wiki/File%3AOrthoptera_Calls_-_Wyckoff%2C_New_Jersey_2024-08-15.mp3"
  }
 };
