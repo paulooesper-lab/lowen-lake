@@ -672,3 +672,10 @@ button.mapa-rotulo:hover, button.mapa-rotulo:focus-visible { color: var(--ouro);
 @media (prefers-reduced-motion: reduce) {
   .cartao-p, .cartao-local, .mapa-pin { transition: none; }
 }
+
+/* ---------- destaque para site externo (ex.: guia de Echo Ridge) ---------- */
+.destaque-site { display: flex; gap: 20px; align-items: center; margin: 22px 0 6px; padding: 18px 22px; background: var(--painel); border: 1px solid var(--linha); border-left: 4px solid var(--ouro); border-radius: 8px; }
+.destaque-site img { width: 84px; height: 84px; object-fit: contain; flex-shrink: 0; }
+.destaque-site h2 { margin: 0 0 4px; font-size: 1.15rem; }
+.destaque-site p { margin: 0 0 12px; color: var(--cinza); }
+@media (max-width: 560px) { .destaque-site { flex-direction: column; align-items: flex-start; } }
