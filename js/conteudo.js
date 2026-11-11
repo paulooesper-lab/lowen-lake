@@ -783,6 +783,13 @@ window.SITE = {
           { rotulo: { pt: "Nasce aqui", en: "Source of" }, valor: "Crooked River" },
           { rotulo: { pt: "Vizinha secreta", en: "Secret neighbor" }, valor: { pt: "Área 52", en: "Area 52" } },
         ],
+        destaque: {
+          imagem: "https://paulooesper-lab.github.io/lowen-lake/echo-ridge/img/marca/emblema.png",
+          titulo: { pt: "Guia completo de Echo Ridge", en: "Full Echo Ridge guide" },
+          texto: { pt: "Um site só da região: mapa interativo, cartões postais, curiosidades e a fauna da serra, com o canto real de cada ave.", en: "A whole site just for the region: interactive map, postcards, curiosities and the mountain wildlife, with each bird's real call." },
+          botao: { pt: "Abrir o guia", en: "Open the guide" },
+          url: "https://paulooesper-lab.github.io/lowen-lake/echo-ridge/",
+        },
         mapa: {
           imagem: "img/mapas/echo-ridge.jpg",
           pontos: [

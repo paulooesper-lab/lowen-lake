@@ -98,6 +98,10 @@
           <img src="${esc(pg.segredo.icone)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'segredo-reserva',textContent:'◬'}))">
           <span class="segredo-dica">${esc(T(pg.segredo.dica))}</span></a>` : ""}
       ${pg.fatos ? `<div class="envolve"><dl class="fatos">${pg.fatos.map((f) => `<div><dt>${esc(T(f.rotulo))}</dt><dd>${esc(T(f.valor))}</dd></div>`).join("")}</dl></div>` : ""}
+      ${pg.destaque ? `<div class="envolve"><aside class="destaque-site">
+          ${pg.destaque.imagem ? `<img src="${esc(pg.destaque.imagem)}" alt="" onerror="this.remove()">` : ""}
+          <div><h2>${esc(T(pg.destaque.titulo))}</h2><p>${esc(T(pg.destaque.texto))}</p>
+          <a class="botao" href="${esc(pg.destaque.url)}" target="_blank" rel="noopener">${esc(T(pg.destaque.botao))} ↗</a></div></aside></div>` : ""}
       ${pg.mapa ? mapaLocal(pg.mapa) : ""}
       ${pg.audios ? `<section class="envolve faixa" id="radio"><h2>${esc(U("noAr"))}</h2><p class="miudo">${esc(U("audioLegenda"))}</p>
         <div class="radio-grade">${pg.audios.map((a) => `
