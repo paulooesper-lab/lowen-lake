@@ -1,53 +1,63 @@
 # Echo Ridge · site da região (universo Lowen Lake)
 
-Site de uma página só, com navegação **horizontal**: roda do mouse, setas do teclado, arrastar no celular, menu do topo ou as setas de baixo. Nada rola para baixo, exceto partes específicas (faixas de cards, que rolam para os lados, e textos longos em telas pequenas).
+Site de uma página só, com navegação **horizontal**: roda do mouse, setas do teclado, arrastar no celular, menu do topo ou as setas de baixo. Nada rola para baixo, exceto partes específicas: faixas de cards (que rolam para os lados), a lista de avistamentos, o guia e as telas pequenas.
 
-Para abrir, dê dois cliques no `index.html`, ou rode um servidor local (`python -m http.server 8533` dentro da pasta). No app do Claude, use o launch **echo-ridge-site**.
+Online: https://paulooesper-lab.github.io/lowen-lake/echo-ridge/
+Local: dois cliques no `index.html`, ou `python -m http.server 8533` dentro da pasta (launch **echo-ridge-site** no app do Claude).
 
 ## Seções
-1. **Início**: foto de abertura, lema e fatos.
-2. **Mapa interativo**: mapa ilustrado com 12 ícones clicáveis. Cada um abre um cartão com foto e texto.
-3. **Curiosidades**: 10 cards com foto.
-4. **Cartões postais**: 10 postais em foto. Clique para virar e ler a mensagem no verso.
-5. **Fauna**: 6 categorias (mamíferos, aves, peixes e anfíbios, répteis, insetos e "não confirmados"). As **aves tocam o canto real**.
-6. **Visite**: estações, trilhas, como chegar e regras da montanha.
-7. **Créditos**: inclui os autores e as licenças de cada som.
+1. **Início**: foto de abertura da estação, efeito animado (pétalas, vaga-lumes sincronizados, folhas ou neve) e o cartão "Nesta estação".
+2. **Mapa**: 13 ícones clicáveis e 4 trilhas desenhadas (clique na linha para ver distância, tempo, desnível e perfil de altitude). Tem zoom (roda, + / −, duplo clique) e arrastar. As camadas Lugares e Trilhas ligam e desligam.
+3. **Curiosidades**: 10 cards.
+4. **Postais**: 10 postais que viram ao clicar, mais o **Crie seu postal**, que gera um PNG com frente e verso.
+5. **Fauna**: 5 categorias. Aves, alce, coiote, rã-touro, cigarra e esperança têm som real.
+6. **Lendas**: 7 criaturas e 16 avistamentos no mapa (1883–2026), com filtro por criatura, linha do tempo e o caderno do guarda Dale. O símbolo no canto leva ao dossiê secreto da Área 52.
+7. **História**: linha do tempo com fotos antigas.
+8. **Camping**: 4 opções, regras dos ursos e um checklist "o que levar" (fica salvo no navegador).
+9. **Guia do parque**: abas Equipe (com a líder escoteira Cora Benning em destaque), Boas maneiras, Regras, Caça e pesca, e Como chegar.
+10. **Atividades**: jogos "De quem é essa pegada?" e "Quem está cantando?".
+11. **Créditos**: inclui o autor e a licença de cada som.
 
-O idioma (PT/EN) fica no canto superior direito, e a escolha é lembrada.
+No topo ficam o **seletor de estação** (troca a foto de abertura, os mapas e o efeito; o padrão segue o mês atual), o botão **Ambiente** (floresta de dia, riacho ou noite, em loop) e o **PT/EN**.
 
 ## Como trocar uma IMAGEM
-- **Jeito mais fácil:** salve a nova imagem **por cima do arquivo**, com o mesmo nome e na mesma pasta. Exemplo: `img/fauna/aves/coruja-barrada.jpg`.
-- **Outro jeito:** abra `js/dados.js` e mude o caminho no campo `imagem`, `foto` ou `icone`.
-- Se faltar um arquivo, o site mostra um quadro listrado com o caminho esperado. Assim fica fácil ver o que falta.
+- **Jeito mais fácil:** salve a nova imagem **por cima do arquivo**, com o mesmo nome e na mesma pasta.
+- **Outro jeito:** abra `js/dados.js` e mude o caminho.
+- Se faltar um arquivo, o site mostra um quadro listrado com o caminho esperado.
+- Se faltar uma imagem de estação (`img/hero/<estação>.jpg` ou `img/mapa/<estação>.jpg`), o site usa a de verão (`inicio.jpg` / `base.jpg`).
 
-| Pasta | Conteúdo | Tamanho sugerido |
-|---|---|---|
-| `img/hero/` | foto de abertura | 2000 px, 16:9 |
-| `img/mapa/base.jpg` | mapa ilustrado | 3:2 |
-| `img/icones/` | ícones do mapa, PNG transparente | 200 px |
-| `img/postais/` | fotos dos postais | 3:2 |
-| `img/curiosidades/` | fotos das curiosidades | 3:2 |
-| `img/fauna/<categoria>/` | fotos dos animais | 3:2 |
-| `img/marca/emblema.png` | logo (também usado como favicon) | PNG transparente |
+| Pasta | Conteúdo |
+|---|---|
+| `img/hero/` | fotos de abertura: inicio (verão), primavera, outono, inverno (16:9) |
+| `img/mapa/` | mapas: base (verão), primavera, outono, inverno (3:2, mesmo enquadramento) |
+| `img/icones/` | ícones do mapa (PNG transparente) |
+| `img/postais/`, `img/curiosidades/` | fotos 3:2 |
+| `img/fauna/<categoria>/` | animais, e `fauna/lendas/` para as criaturas |
+| `img/historia/` | fotos antigas da linha do tempo |
+| `img/pegadas/` | fotos das pegadas do jogo |
+| `img/camping/`, `img/guia/` | camping, guardas, escoteira, caça e pesca |
 
-Se você **trocar o mapa**, ajuste a posição dos ícones em `js/dados.js` → `mapa.pontos`. Os valores `x` e `y` são porcentagens (0 a 100) a partir do canto superior esquerdo.
+Se você **trocar um mapa**, mantenha o mesmo enquadramento ou ajuste em `js/dados.js` as posições `x`/`y` (0 a 100, em %) de `mapa.pontos`, `trilhas[].pontos` e `lendas.avistamentos`.
 
-## Como trocar um SOM de ave
-- Substitua `audio/aves/<id>.mp3`, mantendo o nome, e atualize o crédito em `js/creditos-sons.js`.
-- Ou edite a lista `SONS` em `ferramentas/baixar_sons.py` com o título de outro arquivo do Wikimedia Commons, apague o MP3 antigo e rode:
+## Como trocar um SOM
+- Substitua o MP3 (`audio/aves/`, `audio/fauna/` ou `audio/ambiente/`), mantendo o nome, e atualize o crédito em `js/creditos-sons.js`.
+- Ou edite a lista `SONS` em `ferramentas/baixar_sons.py` (título de um arquivo do Wikimedia Commons ou id do xeno-canto), apague o MP3 antigo e rode:
   `python -I echo-ridge-site/ferramentas/baixar_sons.py`
-  O script baixa o arquivo, corta em 30 s com fade e regrava os créditos.
+  O script baixa, corta, ajusta o volume, remonta as paisagens sonoras (`AMBIENTES`) e regrava os créditos.
 
 ## Gerar imagens de novo no ChatGPT
-1. `ferramentas/fila-chatgpt.js` tem todos os prompts. Cole no console de chatgpt.com, deixando no array só as imagens que quiser refazer.
-2. Os downloads saem como `er__<nome>.png`.
-3. Rode `python -I echo-ridge-site/ferramentas/organizar.py`. O script otimiza as imagens e coloca cada uma na pasta certa. Os originais ficam em `ferramentas/originais/`.
-
-## Conferir se falta algo
-`python -I echo-ridge-site/ferramentas/verificar.py` lista todas as imagens e sons citados em `js/dados.js` e avisa os que faltam.
+- `ferramentas/fila-chatgpt.js` (lote 1) e `ferramentas/fila-chatgpt-2.js` (lote 2) têm todos os prompts. Os mapas de estação são feitos **anexando o mapa base** e pedindo "o mesmo mapa" na nova estação.
+- Os downloads saem como `er__<nome>.png`. Depois rode `python -I echo-ridge-site/ferramentas/organizar.py`; os originais ficam em `ferramentas/originais/`.
+- Para conferir se falta algo: `python -I echo-ridge-site/ferramentas/verificar.py`.
 
 ## Textos
-Todos os textos estão em `js/dados.js`, no formato `{ pt: "...", en: "..." }`. Os rótulos fixos da interface (menu, botões) ficam no início de `js/app.js` (objeto `UI`). Depois de editar, aumente o `?v=` das tags `<script>` e `<link>` no `index.html` para o navegador não usar a versão antiga em cache.
+Tudo está em `js/dados.js` no formato `{ pt: "...", en: "..." }`. Os rótulos fixos da interface ficam no objeto `UI` no início de `js/app.js`. Depois de editar, aumente o `?v=` no `index.html`.
 
 ## Cânone × invenção
-Vêm do dossiê de Lowen Lake: Echo Falls, Great Pine, Minas que Sussurram, Dead Pine Lake, Northend Fork, Área 52, SR-55, o hidroavião, Crooked River, Puma Host, Águia Vermelha e White Moth Man. Foram **inventados para este site**: Hawk Knob Fire Tower, Cedar Bend Campground, o guarda florestal Dale, a altitude de 1.840 m e as mensagens dos postais.
+Vêm do dossiê de Lowen Lake: Echo Falls, Great Pine, Minas que Sussurram, Dead Pine Lake, Northend Fork, Área 52, SR-55, o hidroavião, Crooked River, Puma Host, Águia Vermelha, White Moth Man, Drypine Hag, Mossfoot e Gigantus Silvestris.
+
+**Inventados para este site:**
+- Pessoas: os guardas Rosa Delgado, Dale Whitaker, Marcus Reed e Linda Hayes, e a líder escoteira Cora Benning (Tropa 17).
+- Lugares: Hawk Knob Fire Tower, Cedar Bend Campground, Lakeview Primitive Sites, Hawk Knob Cabins e o Prado dos Alces.
+- Histórias: os avistamentos com datas, a linha do tempo (Echo & Co. Mining etc.), as regras e temporadas de caça e as mensagens dos postais.
+- Fauna e dados: os alces no norte da serra e a altitude de 1.840 m.

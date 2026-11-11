@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Echo Ridge · Lowen Lake</title>
-<meta name="description" content="Echo Ridge, as montanhas do norte de Lowen Lake: mapa interativo, curiosidades, cartões postais e fauna.">
+<meta name="description" content="Echo Ridge, as montanhas do norte de Lowen Lake: mapa interativo com trilhas, estações, lendas, camping, guia do parque e fauna com sons reais.">
 <link rel="icon" href="img/marca/emblema.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Source+Sans+3:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/estilo.css?v=4">
+<link rel="stylesheet" href="css/estilo.css?v=6">
 </head>
 <body>
 
@@ -19,37 +19,53 @@
     <span class="marca-nome">Echo Ridge</span>
   </a>
   <nav class="menu" id="menu" aria-label="Seções"></nav>
-  <div class="idioma" role="group" aria-label="Idioma / Language">
-    <button data-idioma="pt">PT</button><button data-idioma="en">EN</button>
+  <div class="topo-acoes">
+    <div class="estacoes" id="estacoes" role="group"></div>
+    <div class="ambiente">
+      <button class="ambiente-botao" id="ambienteBotao" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>
+        <span id="ambienteNome"></span>
+      </button>
+      <div class="ambiente-menu" id="ambienteMenu" hidden></div>
+    </div>
+    <div class="idioma" role="group" aria-label="Idioma / Language">
+      <button data-idioma="pt">PT</button><button data-idioma="en">EN</button>
+    </div>
   </div>
 </header>
 
 <main class="palco">
   <div class="trilho" id="trilho">
 
-    <!-- 1 · INÍCIO -->
+    <!-- INÍCIO -->
     <section class="painel p-inicio" id="inicio" data-nome="inicio">
-      <div class="fundo"><img data-src="inicio.imagem" alt=""></div>
-      <div class="inicio-conteudo">
-        <p class="sobretitulo" data-t="marca.regiao"></p>
-        <h1 class="eco-titulo" data-eco="Echo Ridge">Echo Ridge</h1>
-        <p class="lema" data-t="marca.lema"></p>
-        <p class="inicio-texto" data-t="inicio.texto"></p>
-        <div class="fatos" id="fatos"></div>
-        <button class="botao" data-ir="1"><span data-ui="explorar"></span> →</button>
+      <div class="fundo"><img id="heroImg" alt=""></div>
+      <canvas class="efeito" id="efeito" aria-hidden="true"></canvas>
+      <div class="inicio-grade">
+        <div class="inicio-conteudo">
+          <p class="sobretitulo" data-t="marca.regiao"></p>
+          <h1 class="eco-titulo" data-eco="Echo Ridge">Echo Ridge</h1>
+          <p class="lema" data-t="marca.lema"></p>
+          <p class="inicio-texto" data-t="inicio.texto"></p>
+          <div class="fatos" id="fatos"></div>
+          <button class="botao" data-ir="1"><span data-ui="explorar"></span> →</button>
+        </div>
+        <aside class="estacao-cartao" id="estacaoCartao"></aside>
       </div>
       <div class="dica-rolar"><span data-ui="dica"></span></div>
     </section>
 
-    <!-- 2 · MAPA -->
+    <!-- MAPA -->
     <section class="painel p-mapa" id="mapa" data-nome="mapa">
-      <div class="painel-cabeca"><p class="numero">02</p><h2 data-ui="mapa"></h2><p class="painel-sub" data-ui="mapaSub"></p></div>
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="mapa"></h2><p class="painel-sub" data-ui="mapaSub"></p></div>
       <div class="mapa-area">
         <div class="mapa-moldura" id="mapaMoldura">
           <div class="mapa-zoom" id="mapaZoom">
-            <img class="mapa-img" data-src="mapa.imagem" alt="" draggable="false">
+            <img class="mapa-img" id="mapaImg" alt="" draggable="false">
+            <svg class="mapa-trilhas" id="mapaTrilhas" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
             <div class="mapa-pinos" id="mapaPinos"></div>
           </div>
+          <div class="mapa-camadas" id="mapaCamadas" role="group"></div>
           <div class="mapa-controles">
             <button id="zoomMais" aria-label="Ampliar">+</button>
             <button id="zoomMenos" aria-label="Reduzir">−</button>
@@ -61,40 +77,90 @@
       </div>
     </section>
 
-    <!-- 3 · CURIOSIDADES -->
+    <!-- CURIOSIDADES -->
     <section class="painel p-curiosidades" id="curiosidades" data-nome="curiosidades">
-      <div class="painel-cabeca"><p class="numero">03</p><h2 data-ui="curiosidades"></h2><p class="painel-sub" data-ui="curiosidadesSub"></p></div>
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="curiosidades"></h2><p class="painel-sub" data-ui="curiosidadesSub"></p></div>
       <div class="faixa rola-x" id="faixaCuriosidades"></div>
     </section>
 
-    <!-- 4 · POSTAIS -->
+    <!-- POSTAIS -->
     <section class="painel p-postais" id="postais" data-nome="postais">
-      <div class="painel-cabeca"><p class="numero">04</p><h2 data-ui="postais"></h2><p class="painel-sub" data-ui="postaisSub"></p></div>
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="postais"></h2><p class="painel-sub" data-ui="postaisSub"></p>
+        <button class="botao botao-pequeno" id="abrirCriador">✎ <span data-ui="crieSeu"></span></button></div>
       <div class="faixa rola-x" id="faixaPostais"></div>
     </section>
 
-    <!-- 5 · FAUNA -->
+    <!-- FAUNA -->
     <section class="painel p-fauna" id="fauna" data-nome="fauna">
-      <div class="painel-cabeca"><p class="numero">05</p><h2 data-ui="fauna"></h2><p class="painel-sub" data-ui="faunaSub"></p></div>
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="fauna"></h2><p class="painel-sub" data-ui="faunaSub"></p></div>
       <div class="fauna-area">
         <div class="abas" id="abasFauna" role="tablist"></div>
         <div class="fauna-lista">
-          <p class="fauna-aviso" id="faunaAviso" hidden></p>
           <div class="faixa rola-x" id="faixaFauna"></div>
         </div>
       </div>
     </section>
 
-    <!-- 6 · VISITE -->
-    <section class="painel p-visite" id="visite" data-nome="visite">
-      <div class="fundo escuro"><img data-src="visite.imagem" alt=""></div>
-      <div class="painel-cabeca"><p class="numero">06</p><h2 data-ui="visite"></h2><p class="painel-sub" data-ui="visiteSub"></p></div>
-      <div class="blocos" id="blocosVisite"></div>
+    <!-- LENDAS E AVISTAMENTOS -->
+    <section class="painel p-lendas" id="lendas" data-nome="lendas">
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="lendas"></h2><p class="painel-sub" data-t="lendas.intro"></p></div>
+      <div class="lendas-area">
+        <div class="lendas-esq">
+          <div class="filtros" id="filtrosLendas"></div>
+          <div class="lendas-mapa">
+            <img id="lendasMapaImg" alt="" draggable="false">
+            <div id="lendasPontos"></div>
+          </div>
+          <div class="linha-anos">
+            <input type="range" id="anoLendas" min="1880" max="2026" step="1" value="2026" aria-label="Ano">
+            <span id="anoLendasRotulo"></span>
+          </div>
+        </div>
+        <div class="lendas-dir">
+          <article class="criatura" id="criaturaCartao"></article>
+          <div class="avistamentos rola-y" id="listaAvistamentos"></div>
+        </div>
+        <aside class="caderno" id="cadernoDale"></aside>
+      </div>
+      <a class="segredo" id="segredoLendas" target="_blank" rel="noopener">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 6 L33 30 H7 Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="22" r="3.5" fill="currentColor"/></svg>
+      </a>
     </section>
 
-    <!-- 7 · CRÉDITOS -->
+    <!-- HISTÓRIA -->
+    <section class="painel p-historia" id="historia" data-nome="historia">
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="historia"></h2><p class="painel-sub" data-ui="historiaSub"></p></div>
+      <div class="faixa rola-x linha-tempo" id="faixaHistoria"></div>
+    </section>
+
+    <!-- CAMPING -->
+    <section class="painel p-camping" id="camping" data-nome="camping">
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="camping"></h2><p class="painel-sub" data-t="camping.intro"></p></div>
+      <div class="camping-area">
+        <div class="faixa rola-x" id="faixaCamping"></div>
+        <aside class="camping-lado rola-y" id="campingLado"></aside>
+      </div>
+    </section>
+
+    <!-- GUIA DO PARQUE -->
+    <section class="painel p-guia" id="guia" data-nome="guia">
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="guia"></h2><p class="painel-sub" data-t="guia.intro"></p></div>
+      <div class="guia-abas" id="guiaAbas" role="tablist"></div>
+      <div class="guia-conteudo" id="guiaConteudo"></div>
+    </section>
+
+    <!-- ATIVIDADES -->
+    <section class="painel p-atividades" id="atividades" data-nome="atividades">
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="atividades"></h2><p class="painel-sub" data-ui="atividadesSub"></p></div>
+      <div class="jogos">
+        <article class="jogo" id="jogoPegadas"></article>
+        <article class="jogo" id="jogoSons"></article>
+      </div>
+    </section>
+
+    <!-- CRÉDITOS -->
     <section class="painel p-creditos" id="creditos" data-nome="creditos">
-      <div class="painel-cabeca"><p class="numero">07</p><h2 data-ui="creditos"></h2></div>
+      <div class="painel-cabeca"><p class="numero"></p><h2 data-ui="creditos"></h2></div>
       <div class="creditos-area rola-y" id="creditosArea"></div>
     </section>
 
@@ -104,7 +170,7 @@
 <footer class="controles">
   <button class="seta" id="anterior" aria-label="Anterior">←</button>
   <div class="progresso"><div class="progresso-barra" id="barra"></div></div>
-  <span class="contador" id="contador">01 / 07</span>
+  <span class="contador" id="contador"></span>
   <button class="seta" id="proximo" aria-label="Próximo">→</button>
 </footer>
 
@@ -113,8 +179,28 @@
   <figure><img id="lightboxImg" alt=""><figcaption id="lightboxLegenda"></figcaption></figure>
 </div>
 
-<script src="js/dados.js?v=4"></script>
-<script src="js/creditos-sons.js?v=4"></script>
-<script src="js/app.js?v=4"></script>
+<!-- criador de postal -->
+<div class="modal" id="criador" hidden>
+  <div class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="criadorTitulo">
+    <button class="modal-fechar" id="fecharCriador" aria-label="Fechar">×</button>
+    <h2 id="criadorTitulo" data-ui="crieSeu"></h2>
+    <div class="criador-grade">
+      <canvas id="postalCanvas" width="1500" height="1000"></canvas>
+      <div class="criador-campos">
+        <p class="rotulo" data-ui="escolhaFoto"></p>
+        <div class="criador-fotos" id="criadorFotos"></div>
+        <label><span data-ui="tituloPostal"></span><input id="cTitulo" maxlength="28"></label>
+        <label><span data-ui="mensagem"></span><textarea id="cMensagem" rows="4" maxlength="220"></textarea></label>
+        <label><span data-ui="assinatura"></span><input id="cAssinatura" maxlength="30"></label>
+        <label class="linha"><input type="checkbox" id="cVerso" checked> <span data-ui="incluirVerso"></span></label>
+        <button class="botao" id="baixarPostal">↓ <span data-ui="baixar"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/dados.js?v=6"></script>
+<script src="js/creditos-sons.js?v=6"></script>
+<script src="js/app.js?v=6"></script>
 </body>
 </html>
