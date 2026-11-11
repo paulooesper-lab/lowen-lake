@@ -643,3 +643,47 @@ img { display: block; max-width: 100%; }
 }
 .camp-regras-foto { aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; margin-bottom: 12px; cursor: zoom-in; }
 .camp-regras-foto img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- gerador de licença ---------- */
+.licenca-area { flex: 1; min-height: 0; display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 26px; }
+.licenca-form { display: grid; gap: 10px; align-content: start; padding-right: 8px; }
+.licenca-form label { display: grid; gap: 4px; font-size: 12.5px; font-weight: 700; color: var(--nevoa); }
+.licenca-form input:not([type=checkbox]):not([type=range]):not([type=file]), .licenca-form select {
+  font: 15px var(--corpo); padding: 7px 10px; border-radius: 8px; border: 1px solid var(--linha); background: rgba(247,240,225,.95); color: var(--tinta); }
+.licenca-form input[type=range] { accent-color: var(--ferrugem); }
+.licenca-form input[type=file] { font-size: 13px; color: var(--creme); }
+.licenca-form fieldset { border: 1px solid var(--linha); border-radius: 10px; padding: 8px 12px 10px; display: grid; gap: 6px; }
+.licenca-form legend { font: 800 15px var(--display); padding: 0 6px; color: var(--creme); }
+.lic-linha { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lic-check { display: flex !important; align-items: center; gap: 8px; font-size: 14px !important; color: var(--creme) !important; font-weight: 600 !important; }
+.lic-check input { width: 17px; height: 17px; accent-color: var(--ferrugem); }
+.lic-tipos { display: flex; gap: 6px; }
+.lic-tipos button { flex: 1; padding: 9px; border-radius: 10px; border: 1px solid var(--linha); font-weight: 800; color: var(--nevoa); }
+.lic-tipos button.ativo { background: var(--creme); color: var(--tinta); }
+.lic-tipos button[data-tipo="caca"].ativo { background: #e2742d; color: #fff; border-color: #e2742d; }
+.miudo { font-size: 12px; color: var(--nevoa); }
+.lic-aviso { font-size: 12px; color: #f0a48a; font-style: italic; }
+.licenca-preview { display: flex; flex-direction: column; gap: 12px; min-height: 0; justify-content: center; }
+.lic-cartoes { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.lic-cartoes figure { display: grid; gap: 6px; }
+.lic-cartoes canvas { width: 100%; height: auto; border-radius: 14px; box-shadow: 0 14px 30px rgba(0,0,0,.45); background: #ddd; }
+.lic-cartoes figcaption { font-size: 12px; font-weight: 700; color: var(--nevoa); text-transform: uppercase; letter-spacing: .12em; text-align: center; }
+.lic-botoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.botao-linha { background: transparent; border: 1px solid var(--creme); color: var(--creme); }
+.botao-linha:hover { background: rgba(255,255,255,.08); }
+.caca-licenca { grid-column: 1 / -1; justify-self: start; }
+#licImpressao { display: none; }
+@media (max-width: 1100px) { .licenca-area { grid-template-columns: 300px minmax(0, 1fr); } .lic-cartoes { grid-template-columns: 1fr; max-width: 520px; } }
+@media (max-width: 820px) { .licenca-area { display: flex; flex-direction: column; overflow-y: auto; } .licenca-form { overflow: visible; } }
+
+/* impressão: só os dois cartões, em tamanho real (CR80 = 85,6 × 54 mm), com linha de corte */
+@media print {
+  @page { margin: 12mm; }
+  html, body { height: auto !important; overflow: visible !important; background: #fff !important; }
+  body > *:not(#licImpressao) { display: none !important; }
+  #licImpressao { display: flex !important; gap: 8mm; flex-wrap: wrap; }
+  #licImpressao img { width: 85.6mm; height: 53.98mm; outline: .3mm dashed #888; outline-offset: 1mm; }
+}
+.licenca-form > *, .lic-linha > label, .licenca-form label { min-width: 0; }
+.licenca-form input:not([type=checkbox]):not([type=range]), .licenca-form select { width: 100%; min-width: 0; }
+.licenca-form input[type=file] { max-width: 100%; }
