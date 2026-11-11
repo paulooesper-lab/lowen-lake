@@ -11,6 +11,8 @@
     pt: {
       inicio: "Início", mapa: "Mapa", curiosidades: "Curiosidades", postais: "Postais", fauna: "Fauna", lendas: "Lendas",
       historia: "História", camping: "Camping", guia: "Guia do parque", atividades: "Atividades", creditos: "Créditos",
+      licenca: "Licença", licencaSub: "Monte sua licença de pesca ou de caça de Lowen Lake, com sua foto, e imprima no tamanho de um documento de carteira.",
+      gerarLicenca: "Gerar minha licença →",
       explorar: "Explorar o mapa", dica: "Role, arraste ou use as setas →",
       mapaSub: "Clique nos ícones para conhecer cada lugar e nas linhas coloridas para ver as trilhas.",
       dicaZoom: "Role sobre o mapa ou use + / − para ampliar · arraste para mover",
@@ -41,11 +43,13 @@
       erroBaixar: "Para baixar, abra o site online ou por um servidor local (o navegador bloqueia imagens abertas direto do disco).",
       sons: "Sons", sonsTxt: "Gravações reais da natureza, do Wikimedia Commons (xeno-canto, Yellowstone Sound Library e outros). Cortadas e com volume ajustado.",
       imagensTit: "Imagens", trocar: "Todas as imagens e sons podem ser trocados: veja LEIA-ME.md na pasta do site.",
-      sobre: "Sobre", licenca: "licença", fonte: "fonte", inventado: "Guardas, a líder escoteira, camping e regras do parque são ficção criada para este site.",
+      sobre: "Sobre", licencaSom: "licença", fonte: "fonte", inventado: "Guardas, a líder escoteira, camping e regras do parque são ficção criada para este site.",
     },
     en: {
       inicio: "Home", mapa: "Map", curiosidades: "Curiosities", postais: "Postcards", fauna: "Wildlife", lendas: "Legends",
       historia: "History", camping: "Camping", guia: "Park guide", atividades: "Activities", creditos: "Credits",
+      licenca: "License", licencaSub: "Make your own Lowen Lake fishing or hunting license with your photo and print it at wallet-card size.",
+      gerarLicenca: "Make my license →",
       explorar: "Explore the map", dica: "Scroll, drag or use the arrows →",
       mapaSub: "Click the icons to discover each place and the colored lines to see the trails.",
       dicaZoom: "Scroll over the map or use + / − to zoom · drag to move",
@@ -76,7 +80,7 @@
       erroBaixar: "To download, open the site online or through a local server (browsers block images opened straight from disk).",
       sons: "Sounds", sonsTxt: "Real field recordings from Wikimedia Commons (xeno-canto, Yellowstone Sound Library and others). Trimmed and volume-matched.",
       imagensTit: "Images", trocar: "Every image and sound can be swapped: see LEIA-ME.md in the site folder.",
-      sobre: "About", licenca: "license", fonte: "source", inventado: "The rangers, the scout leader, the campgrounds and the park rules are fiction made for this site.",
+      sobre: "About", licencaSom: "license", fonte: "source", inventado: "The rangers, the scout leader, the campgrounds and the park rules are fiction made for this site.",
     },
   };
 
@@ -887,7 +891,8 @@
           <h3>${esc(ui("temporadas"))}</h3><table class="tabela"><thead><tr><th>${esc(ui("especie"))}</th><th>${esc(ui("periodo"))}</th><th>${esc(ui("situacao"))}</th></tr></thead>
           <tbody>${k.temporadas.map(s => `<tr class="${s.proibido ? "proibido" : ""}"><td>${esc(t(s.especie))}</td><td>${esc(t(s.periodo))}</td><td>${esc(t(s.status))}</td></tr>`).join("")}</tbody></table></div>
         <div class="caca-pesca"><h3>${esc(ui("pesca"))}</h3><ul class="lista-pontos">${lista(t(k.pesca))}</ul></div>
-        <div class="caca-fotos"></div>`;
+        <div class="caca-fotos"></div>
+        <button class="botao caca-licenca" data-ir="${paineis.findIndex(p => p.id === "licenca")}">${esc(ui("gerarLicenca"))}</button>`;
       const fs = $(".caca-fotos", c);
       [[k.imagem, ui("abaCaca")], [k.imagemPesca, ui("pesca")]].forEach(([src, leg]) => { const f = foto(src, leg); f.onclick = () => abrirLightbox(src, leg); fs.appendChild(f); });
     } else {
@@ -978,7 +983,7 @@
     const amb = D.ambientes.map(a => ({ id: "amb-" + a.id, nome: t(a.nome) }));
     const sons = [...comSom, ...amb].map(e => {
       const s = SONS[e.id];
-      return `<li><strong>${esc(e.nome)}</strong> · ${s ? `${esc(s.autor)} · ${esc(ui("licenca"))}: ${esc(s.licenca)} · <a href="${esc(s.fonte)}" target="_blank" rel="noopener">${esc(ui("fonte"))}</a>` : "—"}</li>`;
+      return `<li><strong>${esc(e.nome)}</strong> · ${s ? `${esc(s.autor)} · ${esc(ui("licencaSom"))}: ${esc(s.licenca)} · <a href="${esc(s.fonte)}" target="_blank" rel="noopener">${esc(ui("fonte"))}</a>` : "—"}</li>`;
     }).join("");
     $("#creditosArea").innerHTML = `
       <div>
@@ -1008,7 +1013,10 @@
     if (!$("#criador").hidden) abrirCriador();
     carregarPerto();
   }
-  $$("[data-idioma]").forEach(b => (b.onclick = () => { lang = b.dataset.idioma; guardar("er-idioma2", lang); aplicarIdioma(); }));
+  $$("[data-idioma]").forEach(b => (b.onclick = () => {
+    lang = b.dataset.idioma; guardar("er-idioma2", lang); aplicarIdioma();
+    document.dispatchEvent(new Event("er-idioma")); // avisa o gerador de licença (js/licenca.js)
+  }));
 
   /* ---------- início ---------- */
   aplicarIdioma();
