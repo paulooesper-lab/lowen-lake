@@ -10,6 +10,7 @@
       inicio: "Início", mapa: "Mapa", curiosidades: "Curiosidades", postais: "Postais", fauna: "Fauna", visite: "Visite", creditos: "Créditos",
       explorar: "Explorar o mapa", dica: "Role, arraste ou use as setas →",
       mapaSub: "Clique nos ícones para conhecer cada lugar da serra.",
+      dicaZoom: "Role sobre o mapa ou use + / − para ampliar · arraste para mover",
       curiosidadesSub: "O que os moradores contam (e o que é verdade de fato).",
       postaisSub: "Clique num postal para ler o verso.",
       faunaSub: "Os bichos reais das montanhas, por categoria. Nas aves, aperte o play para ouvir o canto gravado na natureza.",
@@ -26,6 +27,7 @@
       inicio: "Home", mapa: "Map", curiosidades: "Curiosities", postais: "Postcards", fauna: "Wildlife", visite: "Visit", creditos: "Credits",
       explorar: "Explore the map", dica: "Scroll, drag or use the arrows →",
       mapaSub: "Click the icons to discover each place in the ridge.",
+      dicaZoom: "Scroll over the map or use + / − to zoom · drag to move",
       curiosidadesSub: "What the locals say (and what is actually true).",
       postaisSub: "Click a postcard to read the back.",
       faunaSub: "The real animals of the mountains, by category. For birds, press play to hear a recording made in the wild.",
@@ -152,6 +154,7 @@
     if (!toque || !$("#lightbox").hidden) return;
     const p = e.changedTouches[0], dx = toque.x - p.clientX, dy = toque.y - p.clientY;
     if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      if (toque.alvo.closest(".mapa-moldura.ampliado")) { toque = null; return; } // arrastando o mapa ampliado
       const faixa = toque.alvo.closest(".rola-x");
       const temMais = faixa && (dx > 0 ? faixa.scrollLeft + faixa.clientWidth < faixa.scrollWidth - 4 : faixa.scrollLeft > 4);
       if (!temMais) ir(atual + (dx > 0 ? 1 : -1));
@@ -241,7 +244,63 @@
     acoes.appendChild(voltar);
     corpo.appendChild(acoes);
     c.appendChild(corpo);
+    carregarPerto(); // o cartão é criado depois da navegação: carrega a foto agora
   }
+
+  /* ---------- zoom do mapa: roda do mouse, botões, duplo clique e arrastar ---------- */
+  const moldura = $("#mapaMoldura"), camada = $("#mapaZoom");
+  const ZMAX = 4;
+  let z = 1, zx = 0, zy = 0;
+  function aplicarZoom() {
+    const W = moldura.clientWidth, H = moldura.clientHeight;
+    z = Math.min(ZMAX, Math.max(1, z));
+    zx = Math.min(0, Math.max(W * (1 - z), zx));   // nunca mostra borda vazia
+    zy = Math.min(0, Math.max(H * (1 - z), zy));
+    camada.style.transform = `translate(${zx}px, ${zy}px) scale(${z})`;
+    camada.style.setProperty("--z", z);
+    moldura.classList.toggle("ampliado", z > 1.01);
+    $("#zoomMenos").disabled = z <= 1.01;
+    $("#zoomMais").disabled = z >= ZMAX - 0.01;
+  }
+  function zoomEm(novo, cx, cy) { // cx/cy: ponto (na moldura) que fica parado
+    if (cx == null) { cx = moldura.clientWidth / 2; cy = moldura.clientHeight / 2; }
+    const nz = Math.min(ZMAX, Math.max(1, novo));
+    zx = cx - ((cx - zx) * nz) / z;
+    zy = cy - ((cy - zy) * nz) / z;
+    z = nz;
+    aplicarZoom();
+  }
+  const posNaMoldura = e => { const r = moldura.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  $("#zoomMais").onclick = () => zoomEm(z * 1.5);
+  $("#zoomMenos").onclick = () => zoomEm(z / 1.5);
+  $("#zoomReset").onclick = () => { z = 1; zx = 0; zy = 0; aplicarZoom(); };
+  moldura.addEventListener("wheel", e => {
+    e.preventDefault(); e.stopPropagation(); // sobre o mapa a roda amplia em vez de trocar de painel
+    zoomEm(z * (e.deltaY < 0 ? 1.2 : 1 / 1.2), ...posNaMoldura(e));
+  }, { passive: false });
+  moldura.addEventListener("dblclick", e => {
+    if (e.target.closest(".pino, .mapa-controles")) return;
+    zoomEm(z >= ZMAX - 0.01 ? 1 : z * 2, ...posNaMoldura(e));
+  });
+  let arraste = null, arrastou = false;
+  moldura.addEventListener("pointerdown", e => {
+    if (z <= 1.01 || e.target.closest(".mapa-controles")) return;
+    arraste = { x: e.clientX, y: e.clientY, zx, zy };
+    arrastou = false;
+  });
+  window.addEventListener("pointermove", e => {
+    if (!arraste) return;
+    const dx = e.clientX - arraste.x, dy = e.clientY - arraste.y;
+    if (!arrastou && Math.hypot(dx, dy) < 5) return;   // clique curto continua abrindo o ícone
+    arrastou = true;
+    camada.classList.add("arrastando");
+    zx = arraste.zx + dx; zy = arraste.zy + dy;
+    aplicarZoom();
+  });
+  window.addEventListener("pointerup", () => { arraste = null; camada.classList.remove("arrastando"); });
+  moldura.addEventListener("click", e => { if (arrastou) { e.stopPropagation(); e.preventDefault(); arrastou = false; } }, true);
+  window.addEventListener("resize", aplicarZoom);
+  aplicarZoom();
 
   /* ---------- 3 · curiosidades ---------- */
   function montarCuriosidades() {
