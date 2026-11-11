@@ -5,6 +5,10 @@
 // =====================================================================
 let IDIOMA = 'pt';
 try {
+  const daUrl = new URLSearchParams(location.search).get('lang');
+  if (daUrl === 'pt' || daUrl === 'en') localStorage.setItem('llr_idioma', daUrl);
+} catch (e) {}
+try {
   const salvo = localStorage.getItem('llr_idioma');
   if (salvo === 'pt' || salvo === 'en') IDIOMA = salvo;
   else IDIOMA = /^pt/i.test(navigator.language || 'pt') ? 'pt' : 'en';
