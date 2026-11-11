@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Echo Ridge · Lowen Lake</title>
+<meta name="description" content="Echo Ridge, as montanhas do norte de Lowen Lake: mapa interativo, curiosidades, cartões postais e fauna.">
+<link rel="icon" href="img/marca/emblema.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Source+Sans+3:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css?v=3">
+</head>
+<body>
+
+<header class="topo">
+  <a class="marca" href="#inicio" data-ir="0">
+    <img class="marca-logo" src="img/marca/emblema.png" alt="" onerror="this.style.display='none'">
+    <span class="marca-nome">Echo Ridge</span>
+  </a>
+  <nav class="menu" id="menu" aria-label="Seções"></nav>
+  <div class="idioma" role="group" aria-label="Idioma / Language">
+    <button data-idioma="pt">PT</button><button data-idioma="en">EN</button>
+  </div>
+</header>
+
+<main class="palco">
+  <div class="trilho" id="trilho">
+
+    <!-- 1 · INÍCIO -->
+    <section class="painel p-inicio" id="inicio" data-nome="inicio">
+      <div class="fundo"><img data-src="inicio.imagem" alt=""></div>
+      <div class="inicio-conteudo">
+        <p class="sobretitulo" data-t="marca.regiao"></p>
+        <h1 class="eco-titulo" data-eco="Echo Ridge">Echo Ridge</h1>
+        <p class="lema" data-t="marca.lema"></p>
+        <p class="inicio-texto" data-t="inicio.texto"></p>
+        <div class="fatos" id="fatos"></div>
+        <button class="botao" data-ir="1"><span data-ui="explorar"></span> →</button>
+      </div>
+      <div class="dica-rolar"><span data-ui="dica"></span></div>
+    </section>
+
+    <!-- 2 · MAPA -->
+    <section class="painel p-mapa" id="mapa" data-nome="mapa">
+      <div class="painel-cabeca"><p class="numero">02</p><h2 data-ui="mapa"></h2><p class="painel-sub" data-ui="mapaSub"></p></div>
+      <div class="mapa-area">
+        <div class="mapa-moldura" id="mapaMoldura">
+          <img class="mapa-img" data-src="mapa.imagem" alt="">
+          <div class="mapa-pinos" id="mapaPinos"></div>
+        </div>
+        <aside class="mapa-cartao" id="mapaCartao" aria-live="polite"></aside>
+      </div>
+    </section>
+
+    <!-- 3 · CURIOSIDADES -->
+    <section class="painel p-curiosidades" id="curiosidades" data-nome="curiosidades">
+      <div class="painel-cabeca"><p class="numero">03</p><h2 data-ui="curiosidades"></h2><p class="painel-sub" data-ui="curiosidadesSub"></p></div>
+      <div class="faixa rola-x" id="faixaCuriosidades"></div>
+    </section>
+
+    <!-- 4 · POSTAIS -->
+    <section class="painel p-postais" id="postais" data-nome="postais">
+      <div class="painel-cabeca"><p class="numero">04</p><h2 data-ui="postais"></h2><p class="painel-sub" data-ui="postaisSub"></p></div>
+      <div class="faixa rola-x" id="faixaPostais"></div>
+    </section>
+
+    <!-- 5 · FAUNA -->
+    <section class="painel p-fauna" id="fauna" data-nome="fauna">
+      <div class="painel-cabeca"><p class="numero">05</p><h2 data-ui="fauna"></h2><p class="painel-sub" data-ui="faunaSub"></p></div>
+      <div class="fauna-area">
+        <div class="abas" id="abasFauna" role="tablist"></div>
+        <div class="fauna-lista">
+          <p class="fauna-aviso" id="faunaAviso" hidden></p>
+          <div class="faixa rola-x" id="faixaFauna"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · VISITE -->
+    <section class="painel p-visite" id="visite" data-nome="visite">
+      <div class="fundo escuro"><img data-src="visite.imagem" alt=""></div>
+      <div class="painel-cabeca"><p class="numero">06</p><h2 data-ui="visite"></h2><p class="painel-sub" data-ui="visiteSub"></p></div>
+      <div class="blocos" id="blocosVisite"></div>
+    </section>
+
+    <!-- 7 · CRÉDITOS -->
+    <section class="painel p-creditos" id="creditos" data-nome="creditos">
+      <div class="painel-cabeca"><p class="numero">07</p><h2 data-ui="creditos"></h2></div>
+      <div class="creditos-area rola-y" id="creditosArea"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="controles">
+  <button class="seta" id="anterior" aria-label="Anterior">←</button>
+  <div class="progresso"><div class="progresso-barra" id="barra"></div></div>
+  <span class="contador" id="contador">01 / 07</span>
+  <button class="seta" id="proximo" aria-label="Próximo">→</button>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-fechar" aria-label="Fechar">×</button>
+  <figure><img id="lightboxImg" alt=""><figcaption id="lightboxLegenda"></figcaption></figure>
+</div>
+
+<script src="js/dados.js?v=3"></script>
+<script src="js/creditos-sons.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
+</body>
+</html>
