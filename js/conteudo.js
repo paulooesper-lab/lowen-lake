@@ -1644,6 +1644,8 @@ window.SITE = {
     tituloLendas: { pt: "Lendas e criaturas", en: "Legends and creatures" },
     cronologia: { pt: "Cronologia", en: "Timeline" },
     conhecer: { pt: "Conheça os moradores", en: "Meet the locals" },
+    jogo: { pt: "Jogo", en: "Game" },
+    jogarJogo: { pt: "🎮 Jogar Lowen Lake Rescue", en: "🎮 Play Lowen Lake Rescue" },
     encomendar: { pt: "Encomendar arte", en: "Commission art" },
     todos: { pt: "Todos", en: "All" },
     saibaMais: { pt: "Saiba mais", en: "Learn more" },

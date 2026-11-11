@@ -66,6 +66,7 @@
           const href = s === "eventos" && !naHome ? "eventos.html" : naHome ? `#${s}` : `index.html#${s}`;
           return `<a href="${href}" data-painel="${s}"${s === "encomendas" ? ' class="menu-cta"' : ""}>${esc(U("menu." + s))}</a>`;
         }).join("")}
+        <a href="jogo/?lang=${LANG}" class="menu-jogo">🎮 ${esc(U("jogo"))}</a>
       </nav>
       <div class="idioma" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="${LANG === "pt"}">PT</button>
@@ -176,7 +177,7 @@
     f.innerHTML = `
       <div class="envolve rodape-grade">
         <p class="miudo">${esc(U("direitos").replace("{artista}", S.nomeArtista))}
-          <br><a href="sobre.html">${esc(U("sobreArtista"))}</a> · <a href="relacoes.html">${esc(U("mapaRelacoes"))}</a> · <a href="criatura.html">${esc(U("bestiario"))}</a></p>
+          <br><a href="sobre.html">${esc(U("sobreArtista"))}</a> · <a href="relacoes.html">${esc(U("mapaRelacoes"))}</a> · <a href="criatura.html">${esc(U("bestiario"))}</a> · <a href="jogo/?lang=${LANG}">${esc(U("jogarJogo"))}</a></p>
         ${redesHTML("redes redes-mini")}
         <div class="email-linha"><span class="miudo">${esc(U("contato"))}</span>
           <a class="email" href="mailto:${esc(S.email)}">${esc(S.email)}</a>

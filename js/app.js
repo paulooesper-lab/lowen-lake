@@ -1,6 +1,6 @@
 /* Página principal: painéis que passam para o lado. Monta tudo a partir de js/conteudo.js. */
 (function () {
-  const { S, T, U, esc, $, img, acharLocal, locaisVisiveis, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
+  const { S, LANG, T, U, esc, $, img, acharLocal, locaisVisiveis, nomeOnde, urlLocal, cabecalho, abrirCaixa, fecharCaixa,
     abrirPersonagem, abrirLocal, abrirCriatura, rodape, ligarCopiar, idadeTexto, SECOES } = window.LL;
 
   const topo = cabecalho(true);
@@ -61,6 +61,7 @@
         <div class="hero-acoes">
           <a class="botao" href="#personagens">${esc(U("conhecer"))}</a>
           <a class="botao botao-linha" href="#encomendas">${esc(U("encomendar"))}</a>
+          <a class="botao botao-jogo" href="jogo/?lang=${LANG}">${esc(U("jogarJogo"))}</a>
         </div>
         ${cur ? `<p class="relogio">${esc(T(cur.rotulo))} <b>${esc(cur.valor)}</b> ${esc(T(cur.nota))}</p>` : ""}
       </div>
