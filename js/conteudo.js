@@ -31,7 +31,9 @@ window.SITE = {
     { nome: "X", rede: "x", usuario: "@Rwesper1", url: "https://x.com/Rwesper1" },
     { nome: "DeviantArt", rede: "deviantart", usuario: "rwedgie", url: "https://www.deviantart.com/rwedgie" },
     { nome: "Bluesky", rede: "bluesky", usuario: "@raptorwedgie.bsky.social", url: "https://bsky.app/profile/raptorwedgie.bsky.social" },
+    { nome: "Discord", rede: "discord", usuario: "Welcome to Lowen Lake", url: "https://discord.gg/GT2q2v63gX" },
   ],
+  discord: "https://discord.gg/GT2q2v63gX",
 
   /* ---------- Sobre o artista (sobre.html) ---------- */
   artista: {

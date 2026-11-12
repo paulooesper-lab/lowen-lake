@@ -67,6 +67,7 @@
           return `<a href="${href}" data-painel="${s}"${s === "encomendas" ? ' class="menu-cta"' : ""}>${esc(U("menu." + s))}</a>`;
         }).join("")}
         <a href="jogo/?lang=${LANG}" class="menu-jogo">🎮 ${esc(U("jogo"))}</a>
+        ${S.discord ? `<a href="${esc(S.discord)}" class="menu-jogo menu-discord" target="_blank" rel="noopener">💬 Discord</a>` : ""}
       </nav>
       <div class="idioma" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="${LANG === "pt"}">PT</button>
@@ -165,6 +166,7 @@
     x: '<path d="M4 3h4.6l4.1 5.6L17.6 3H20l-6.2 7.1L21 21h-4.6l-4.5-6.1L6.4 21H4l6.8-7.8z" fill="currentColor"/>',
     deviantart: '<path d="M18 2h-4.3l-.6.9-3 5.1H6v5.4h2.8L6 18.6V22h4.3l.6-.9 3-5.1H18v-5.4h-2.8L18 5.4z" fill="currentColor"/>',
     bluesky: '<path d="M12 10.8C10.9 8.6 7.9 4.6 5.1 2.6 2.4.7 1.4 1 .7 1.3 0 1.7 0 2.9 0 3.6c0 .7.4 5.6.6 6.4.9 2.9 3.9 3.8 6.7 3.5-4.1.6-7.7 2.1-3 7.3 5.2 5.4 7.1-1.1 8.1-4.5.6 2.1 1.8 6.6 6.1 6.9 3.1.2 4.6-1.6 1.7-4.4-2.3-2-4.4-2.9-6.1-3.3 2.8.3 5.8-.6 6.7-3.5.2-.8.6-5.7.6-6.4 0-.7 0-1.9-.7-2.3-.7-.3-1.7-.6-4.4 1.3-2.8 2-5.8 6-6.9 8.2z" fill="currentColor" transform="translate(.6 .4) scale(.95)"/>',
+    discord: '<path d="M20.3 4.4A19.6 19.6 0 0 0 15.4 3l-.6 1.3a18 18 0 0 0-5.6 0L8.6 3a19.6 19.6 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18.1A19.8 19.8 0 0 0 6.1 21l1.3-2.1a12.7 12.7 0 0 1-2-1l.5-.4a14 14 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.7 19.7 0 0 0 6-3c.5-5.2-.8-9.7-3.6-13.6zM8 15.3c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.5 8 10.5s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4z" fill="currentColor"/>',
   };
   const iconeRede = (r) => `<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">${ICONES[r] || ""}</svg>`;
   const redesHTML = (cls = "redes") => (S.redes || []).length ? `<ul class="${cls}">${S.redes.map((r) => `
@@ -177,7 +179,7 @@
     f.innerHTML = `
       <div class="envolve rodape-grade">
         <p class="miudo">${esc(U("direitos").replace("{artista}", S.nomeArtista))}
-          <br><a href="sobre.html">${esc(U("sobreArtista"))}</a> · <a href="relacoes.html">${esc(U("mapaRelacoes"))}</a> · <a href="criatura.html">${esc(U("bestiario"))}</a> · <a href="jogo/?lang=${LANG}">${esc(U("jogarJogo"))}</a></p>
+          <br><a href="sobre.html">${esc(U("sobreArtista"))}</a> · <a href="relacoes.html">${esc(U("mapaRelacoes"))}</a> · <a href="criatura.html">${esc(U("bestiario"))}</a> · <a href="jogo/?lang=${LANG}">${esc(U("jogarJogo"))}</a>${S.discord ? ` · <a href="${esc(S.discord)}" target="_blank" rel="noopener">💬 Discord</a>` : ""}</p>
         ${redesHTML("redes redes-mini")}
         <div class="email-linha"><span class="miudo">${esc(U("contato"))}</span>
           <a class="email" href="mailto:${esc(S.email)}">${esc(S.email)}</a>
